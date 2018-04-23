@@ -1,1 +1,1 @@
-require('./lib/koapii.js')
+module.exports = require('./lib/koapii.js')

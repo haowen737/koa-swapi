@@ -2,9 +2,12 @@
   "name": "koaapii",
   "version": "1.0.0",
   "description": "Build restful api and swagger based on koa + koa-router",
-  "main": "index.js",
+  "main": "lib/koapii.js",
   "directories": {
     "lib": "lib"
+  },
+  "engines": {
+    "node": ">=8.9.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
