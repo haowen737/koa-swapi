@@ -1,0 +1,24 @@
+- method: get
+  path: /api/cat
+  validate:
+    query:
+      type: object
+      required:
+        - name
+        - sex
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+        sex:
+          type: integer
+          minimum: 2
+          maximum: 4
+    params:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 2
+          maximum: 4

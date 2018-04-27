@@ -1,0 +1,27 @@
+- method: get
+  path: /api/dog
+  validate:
+    query:
+      type: object
+      required:
+        - name
+        - sex
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+        sex:
+          type: integer
+          minimum: 2
+          maximum: 4
+- method: post
+  path: /api/dog
+  validate:
+    body:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
