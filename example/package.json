@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon  --inspect index.js",
+    "debug": "DEBUG=* nodemon  --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

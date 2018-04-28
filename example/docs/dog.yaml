@@ -1,5 +1,6 @@
 - method: get
   path: /api/dog
+  description: get a handsome cat
   validate:
     query:
       type: object
@@ -17,6 +18,7 @@
           maximum: 4
 - method: post
   path: /api/dog
+  description: get a handsome cat
   validate:
     body:
       type: object

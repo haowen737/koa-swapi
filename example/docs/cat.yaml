@@ -1,5 +1,6 @@
 - method: get
   path: /api/cat
+  description: get a sweet cat
   validate:
     query:
       type: object

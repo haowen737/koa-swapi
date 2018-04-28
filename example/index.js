@@ -5,11 +5,10 @@ const Koapi = require('../lib/koapii')
 const koapi = new Koapi()
 const app = new Koa()
 
-const api = koapi.register()
-api.buildSwagger()
+koapi.register(app)
+// api.buildSwagger()
 
 app.use(bodyparser())
-app.use(api.load(), api.allowedMethods())
 
 app.listen(3333)
 

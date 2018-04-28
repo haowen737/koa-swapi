@@ -4,6 +4,7 @@ const Joi = require('joi')
 module.exports = [{
   method: 'get',
   path: '/api/dog',
+  description: 'get a handsome cat',
   validate: {
     query: {
       name: Joi.string().required().min(3).max(100),
@@ -23,6 +24,7 @@ module.exports = [{
 }, {
   method: 'post',
   path: '/api/dog',
+  description: 'get a handsome cat',
   validate: {
     body: {
       name: Joi.string().min(3).max(100)
