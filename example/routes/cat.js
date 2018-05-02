@@ -5,6 +5,7 @@ module.exports = [{
   method: 'get',
   path: '/api/cat',
   description: 'get a sweet cat',
+  tags: ['cat'],
   validate: {
     params: {
       id: Joi.number().integer().min(2).max(4)

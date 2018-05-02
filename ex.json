@@ -1,0 +1,75 @@
+{
+  "basePath": "http://localhost:3000",
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "swaggerURL": "/swagger",
+  "swaggerJSON": "/api-docs.json",
+  "apis": [
+    {
+      "path": "/api-docs.json/apiJs",
+      "description": "All about API"
+    },
+    {
+      "path": "/api-docs.json/apiCoffee",
+      "description": "All about API"
+    },
+    {
+      "path": "/api-docs.json/apiYml",
+      "description": "All about API"
+    }
+  ]
+}
+{
+  "basePath": "http://localhost:3000",
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "swaggerURL": "/swagger",
+  "swaggerJSON": "/api-docs.json",
+  "apis": [
+    {
+      "path": "/login",
+      "operations": [
+        {
+          "httpMethod": "POST",
+          "summary": "Login with username and password",
+          "notes": "Returns a user based on username",
+          "responseClass": "User",
+          "nickname": "login",
+          "consumes": [
+            "text/html"
+          ],
+          "parameters": [
+            {
+              "name": "username",
+              "description": "Your username",
+              "paramType": "query",
+              "required": true,
+              "dataType": "string"
+            },
+            {
+              "name": "password",
+              "description": "Your password",
+              "paramType": "query",
+              "required": true,
+              "dataType": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resourcePath": "/apiJs",
+  "models": {
+    "User": {
+      "id": "User",
+      "properties": {
+        "username": {
+          "type": "String"
+        },
+        "password": {
+          "type": "String"
+        }
+      }
+    }
+  }
+}
