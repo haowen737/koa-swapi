@@ -1,0 +1,51 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.0",
+  "swaggerURL": "/swagger",
+  "swaggerJSON": "/swagger.json",
+  "swaggerUI": "./public/swagger/",
+  "basePath": "http://localhost:3333",
+  "info": {
+    "title": "koapii swagger example",
+    "description": "this is a sweet koapii swagger example",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/cat": {
+      "get": {
+        "summary": "get a sweet cat",
+        "description": "seriously, it's function get you a sweet cat",
+        "tags": [
+          "cat"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/api/dog": {
+      "get": {
+        "summary": "",
+        "description": "get a handsome cat",
+        "tags": [],
+        "parameters": []
+      },
+      "post": {
+        "summary": "",
+        "description": "get a handsome cat",
+        "tags": [],
+        "parameters": []
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "cat"
+    }
+  ]
+}

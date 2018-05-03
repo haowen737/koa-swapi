@@ -4,7 +4,8 @@ const Joi = require('joi')
 module.exports = [{
   method: 'get',
   path: '/api/cat',
-  description: 'get a sweet cat',
+  description: 'seriously, it\'s function get you a sweet cat',
+  summary: 'get a sweet cat',
   tags: ['cat'],
   validate: {
     params: {

@@ -1,31 +1,11 @@
-- path: /api/dog
-  operations:
-    method: get
-    description: get a handsome cat
-    validate:
-      query:
-        type: object
-        required:
-          - name
-          - sex
-        properties:
-          name:
-            type: string
-            minLength: 3
-            maxLength: 100
-          sex:
-            type: integer
-            minimum: 2
-            maximum: 4
-- path: /api/dog
-  operations:
-    method: post
-    description: get a handsome cat
-    validate:
-      body:
-        type: object
-        properties:
-          name:
-            type: string
-            minLength: 3
-            maxLength: 100
+- /api/dog:
+    get:
+      summary: ''
+      description: get a handsome cat
+      tags: []
+      parameters: []
+    post:
+      summary: ''
+      description: get a handsome cat
+      tags: []
+      parameters: []
