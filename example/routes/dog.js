@@ -3,12 +3,13 @@ const Joi = require('joi')
 
 module.exports = [{
   method: 'get',
-  path: '/api/dog',
-  description: 'get a handsome cat',
+  path: '/dog',
+  summary: '获得一只呆狗',
+  description: '要获得一只呆狗的时候可以调这个接口',
+  tags: ['dog'],
   validate: {
     query: {
-      name: Joi.string().required().min(3).max(100),
-      sex: Joi.number().required().integer().min(2).max(4)
+      name: Joi.string().required().min(3).max(100).description('狗的名字'),
     },
     type: 'form',
     output: {
@@ -22,14 +23,16 @@ module.exports = [{
     ctx.body = 'get dog ok'
   }
 }, {
-  method: 'post',
-  path: '/api/dog',
-  description: 'get a handsome cat',
+  method: 'put',
+  path: '/dog',
+  summary: '创建一只呆狗',
+  description: '要创建一只呆狗的时候可以调这个接口',
+  tags: ['dog'],
   validate: {
-    body: {
-      name: Joi.string().min(3).max(100)
-    },
-    type: 'form',
+    payload: Joi.object({
+      a: Joi.number(),
+      b: Joi.number()
+    }),
     output: {
       200: {
         body: {
