@@ -17,7 +17,6 @@ app.use(bodyparser())
 // api.buildSwagger()
 
 router.get('/', async (ctx, next) => {
-  console.log('ctxctxctxctxctx')
   ctx.body = 'this is page'
 });
 
