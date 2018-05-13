@@ -24,6 +24,7 @@ router.get('/', async (ctx, next) => {
 app.use(router.routes())
 
 app.on('error', err => {
+  console.log(error)
   // log.error('server error', err)
   console.log('----------')
 });

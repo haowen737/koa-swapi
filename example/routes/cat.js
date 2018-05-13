@@ -23,7 +23,8 @@ module.exports = [{
     }
   },
   handler: async (ctx) => {
-    ctx.status = 201;
+    console.log('handle handler', ctx.query)
+    ctx.status = 200;
     ctx.body = 'here is you sweet cat!'
   }
 }]
