@@ -9,11 +9,11 @@ module.exports = [{
   tags: ['cat'],
   validate: {
     params: {
-      id: Joi.number().required().integer().min(2).max(4).description('猫的id')
+      id: Joi.string().required().min(2).max(4).description('猫的id')
     },
     query: {
       name: Joi.string().required().min(3).max(100).description('猫的名字'),
-      sex: Joi.number().required().allow([0, 1]).description('猫的性别, 0:男, 1:女')
+      sex: Joi.string().required().allow(['0', '1']).description('猫的性别, 0:男, 1:女')
     },
     type: 'form',
     output: {

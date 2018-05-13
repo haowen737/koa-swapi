@@ -15,19 +15,11 @@ koapi.register(app, {
   basePath: '/v1'
 })
 
-// api.buildSwagger()
-
 router.get('/', async (ctx, next) => {
   ctx.body = 'this is page'
 });
 
 app.use(router.routes())
-
-app.on('error', err => {
-  console.log(error)
-  // log.error('server error', err)
-  console.log('----------')
-});
 
 app.listen(3333)
 
