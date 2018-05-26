@@ -1,17 +1,17 @@
 const Koa = require('koa')
 const bodyparser = require('koa-bodyparser')
-const Koapi = require('../lib/koapii')
+const Swapi = require('../lib')
 const router = require('koa-router')()
 
 const app = new Koa()
-const koapi = new Koapi()
+const swapi = new Swapi()
 
 app.use(bodyparser())
 
-koapi.register(app, {
-  description: 'this is a sweet koapii swagger example',
+swapi.register(app, {
+  description: 'this is a sweet swapii swagger example',
   version: '1.0.0',
-  title: 'koapii swagger example',
+  title: 'swapii swagger example',
   basePath: '/v1'
 })
 

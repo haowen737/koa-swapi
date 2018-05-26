@@ -2,7 +2,7 @@
   "name": "koaapii",
   "version": "1.0.0",
   "description": "Build restful api and swagger based on koa + koa-router",
-  "main": "lib/koapii.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -36,7 +36,6 @@
     "http-status": "^1.0.1",
     "joi": "^13.2.0",
     "joi-to-swagger": "^2.0.0",
-    "js-yaml": "^3.11.0",
     "koa": "^2.5.0",
     "koa-mount": "^3.0.0",
     "koa-router": "^7.4.0",
