@@ -36,11 +36,13 @@
     "http-status": "^1.0.1",
     "joi": "^13.2.0",
     "joi-to-swagger": "^2.0.0",
+    "json-schema-ref-parser": "^5.0.3",
     "koa": "^2.5.0",
     "koa-mount": "^3.0.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "lodash": "^4.17.10",
+    "swagger-parser": "^5.0.0",
     "swagger-ui-dist": "^3.14.0"
   },
   "devDependencies": {
