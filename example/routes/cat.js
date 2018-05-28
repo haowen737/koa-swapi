@@ -4,6 +4,7 @@ const Joi = require('joi')
 module.exports = [{
   method: 'get',
   path: '/cat/:id',
+  id: 'getCat',
   summary: '获得一只帅气猫',
   description: '想获得一只帅气猫的时候可以调用这个接口',
   tags: ['cat'],
@@ -21,10 +22,5 @@ module.exports = [{
         body: Joi.string()
       }
     }
-  },
-  handler: async (ctx) => {
-    console.log('handle handler', ctx.query)
-    ctx.status = 200;
-    ctx.body = 'here is you sweet cat!'
   }
 }]
