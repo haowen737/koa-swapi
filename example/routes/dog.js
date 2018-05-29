@@ -18,10 +18,6 @@ module.exports = [{
       }
     }
   },
-  handler: async (ctx) => {
-    ctx.status = 201;
-    ctx.body = 'get dog ok'
-  }
 }, {
   method: 'put',
   path: '/dog',
@@ -41,10 +37,4 @@ module.exports = [{
       }
     }
   },
-  handler: async (ctx) => {
-    ctx.status = 201;
-    ctx.body = {
-      name: 'post dog ok'
-    }
-  }
 }]

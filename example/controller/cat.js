@@ -1,8 +1,6 @@
 const controller = module.exports = {}
 
-controller.getCat = async (ctx) => {
+controller.get = async (ctx) => {
   ctx.status = 200;
   ctx.body = 'miaomiaomiao'
 }
-
-export default controller
