@@ -10,6 +10,8 @@
 
 > Super charged router for Koa
 
+[English](https://github.com/haowen737/koa-swapi/blob/master/README.md) | [中文](https://github.com/haowen737/koa-swapi/blob/master/docs/README-zh.md)
+
 *Koa-swapi* is a user-friendly Koa middleware, design your koa router with koa-swapi like [Hapijs](https://hapijs.com/), koa-swapi will validate each request components, and generate [OpenAPI](https://www.openapis.org/) documant (fka [Swagger](https://swagger.io/) RESTful API Documentation Specification).
 
 ## Install
@@ -26,9 +28,6 @@
     const swapi = new Swapi()
 
     swapi.register(app, {
-      description: 'sweet swapi example',
-      version: '1.0.0',
-      title: 'swapii swagger example',
       basePath: '/v1'
     })
 

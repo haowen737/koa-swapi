@@ -10,6 +10,8 @@
 
 > 在Koa中使用更先进的路由
 
+[English](https://github.com/haowen737/koa-swapi/blob/master/README.md) | [中文](https://github.com/haowen737/koa-swapi/blob/master/docs/README-zh.md)
+
 *Koa-swapi* 是一款用起来还算顺手的koa路由中间件, 你可以像 [Hapijs](https://hapijs.com/)一样定义路由, koa-swapi 会进行所有的请求参数校验, 并能生成 [OpenAPI](https://www.openapis.org/) 文档 ([Swagger](https://swagger.io/) RESTful API 文档说明).
 
 
@@ -27,9 +29,6 @@
     const swapi = new Swapi()
 
     swapi.register(app, {
-      description: 'sweet swapi example',
-      version: '1.0.0',
-      title: 'swapii swagger example',
       basePath: '/v1'
     })
 
