@@ -13,9 +13,9 @@ module.exports = [{
     },
     query: {
       name: Joi.string().required().min(3).max(100).description('猫的名字'),
-      sex: Joi.string().required().allow(['0', '1']).description('猫的性别, 0:男, 1:女')
+      sex: Joi.any().required().valid(['0', '1']).description('猫的性别, 0:男, 1:女')
     },
-    type: 'form',
+    // type: 'form',
     output: {
       200: {
         body: Joi.string()

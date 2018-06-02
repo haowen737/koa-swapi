@@ -25,7 +25,7 @@ module.exports = [{
   validate: {
     payload: Joi.object({
       a: Joi.number(),
-      b: Joi.number()
+      b: Joi.number().required()
     }).label('呆狗对象').description('呆狗对象的详情'),
     output: {
       200: {
