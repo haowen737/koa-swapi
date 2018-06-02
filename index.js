@@ -1,1 +1,1 @@
-module.exports = require('./lib/Swapi.js')
+module.exports = require('./lib')
