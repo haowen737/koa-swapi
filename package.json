@@ -1,6 +1,6 @@
 {
   "name": "koa-swapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build restful api like HapiJs",
   "main": "lib/index.js",
   "directories": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haowen737/KoaApii.git"
+    "url": "git+https://github.com/haowen737/koa-swapi.git"
   },
   "keywords": [
     "koa",
@@ -24,9 +24,9 @@
   "author": "Haowen <haowen737@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/haowen737/KoaApii/issues"
+    "url": "https://github.com/haowen737/koa-swapi/issues"
   },
-  "homepage": "https://github.com/haowen737/KoaApii#readme",
+  "homepage": "https://github.com/haowen737/koa-swapi#readme",
   "dependencies": {
     "boom": "^7.1.1",
     "chalk": "^2.4.0",
