@@ -1,7 +1,7 @@
 {
-  "name": "example",
+  "name": "swapii swagger example",
   "version": "1.0.0",
-  "description": "",
+  "description": "this is a sweet swapii swagger example",
   "main": "index.js",
   "scripts": {
     "start": "nodemon  --inspect=5959 index.js",

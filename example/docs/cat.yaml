@@ -1,7 +1,0 @@
-- /api/cat:
-    get:
-      summary: get a sweet cat
-      description: 'seriously, it''s function get you a sweet cat'
-      tags:
-        - cat
-      parameters: []

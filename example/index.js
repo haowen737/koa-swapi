@@ -10,13 +10,9 @@ app.use(bodyparser())
 
 swapi.register(app, {
   basePath: '/v1',
-  info: {
-    description: 'this is a sweet swapii swagger example',
-    version: '1.0.0',
-    title: 'swapii swagger example',
-  }
 })
 
+// feel free to use SPA or SSR
 router.get('/', async (ctx, next) => {
   ctx.body = 'this is page'
 });
