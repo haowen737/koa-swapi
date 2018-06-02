@@ -8,9 +8,10 @@
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)](https://github.com/haowen737/koa-swapi)
 
 
-> Super charged router for Koa
+> 在Koa中使用更先进的路由
 
-*Koa-swapi* is a user-friendly Koa middleware, design your koa router with koa-swapi like [Hapijs](https://hapijs.com/), koa-swapi will validate each request components, and generate [OpenAPI](https://www.openapis.org/) documant (fka [Swagger](https://swagger.io/) RESTful API Documentation Specification).
+*Koa-swapi* 是一款用起来还算顺手的koa路由中间件, 你可以像 [Hapijs](https://hapijs.com/)一样定义路由, koa-swapi 会进行所有的请求参数校验, 并能生成 [OpenAPI](https://www.openapis.org/) 文档 ([Swagger](https://swagger.io/) RESTful API 文档说明).
+
 
 ## Install
 
@@ -54,3 +55,9 @@ The most common API endpoint with HAPI.js is one that POST's a JSON body.
       }
     }
 
+## 感谢
+
+- [hapi](https://hapijs.com/) 路由即文档的一款node框架
+- [Joi](https://github.com/hapijs/joi) 语义化的对象数据模式验证库
+- [hapi-swagger](https://github.com/glennjones/hapi-swagger)hapi的一款swagger构建插件
+- [Swagger UI](https://github.com/swagger-api/swagger-ui) 精美且强大的api接口文档管理平台

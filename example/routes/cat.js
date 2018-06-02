@@ -7,7 +7,6 @@ module.exports = [{
   id: 'getCat',
   summary: '获得一只帅气猫',
   description: '想获得一只帅气猫的时候可以调用这个接口',
-  tags: ['cat'],
   validate: {
     params: {
       id: Joi.string().required().min(2).max(4).description('猫的id')

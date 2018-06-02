@@ -9,10 +9,12 @@ const swapi = new Swapi()
 app.use(bodyparser())
 
 swapi.register(app, {
-  description: 'this is a sweet swapii swagger example',
-  version: '1.0.0',
-  title: 'swapii swagger example',
-  basePath: '/v1'
+  basePath: '/v1',
+  info: {
+    description: 'this is a sweet swapii swagger example',
+    version: '1.0.0',
+    title: 'swapii swagger example',
+  }
 })
 
 router.get('/', async (ctx, next) => {
