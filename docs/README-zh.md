@@ -25,11 +25,21 @@
     const Koa = require('koa')
     const Swapi = require('koa-swapi')
 
+    // when pass routes as parameter
+    const routes = require('./routes')
+
     const app = new Koa()
     const swapi = new Swapi()
 
+    // swapi 会按照约定的/routes目录和/controllers目录搜索路由
     swapi.register(app, {
       basePath: '/v1'
+    })
+
+    // 或者直接将所有路由当做参数传入
+    swapi.register(app, {
+      basePath: '/v1',
+      routes
     })
 
     app.listen(3333)

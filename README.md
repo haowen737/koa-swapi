@@ -24,11 +24,21 @@
     const Koa = require('koa')
     const Swapi = require('koa-swapi')
 
+    // when pass routes as parameter
+    const routes = require('./routes')
+
     const app = new Koa()
     const swapi = new Swapi()
 
+    // swapi will antomatically search /routes and /controller
     swapi.register(app, {
       basePath: '/v1'
+    })
+
+    // or directlly pass routes as parameter
+    swapi.register(app, {
+      basePath: '/v1',
+      routes
     })
 
     app.listen(3333)
