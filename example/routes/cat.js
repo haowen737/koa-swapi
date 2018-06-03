@@ -22,6 +22,10 @@ module.exports = [{
           body: Joi.string()
         }
       }
+    },
+    handler: (ctx) => {
+      ctx.status = 200;
+      ctx.body = 'miao223123miaomiao'
     }
   }
 }]

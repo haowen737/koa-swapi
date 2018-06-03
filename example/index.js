@@ -9,14 +9,15 @@ const swapi = new Swapi()
 
 app.use(bodyparser())
 
+// search api automatically
 swapi.register(app, {
   basePath: '/v1',
-  routes
 })
 
-// search api automatically
+// or directlly pass routes as parameter
 // swapi.register(app, {
 //   basePath: '/v1',
+//   routes
 // })
 
 // feel free to use SPA or SSR
