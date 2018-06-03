@@ -11,7 +11,13 @@ app.use(bodyparser())
 
 swapi.register(app, {
   basePath: '/v1',
+  routes
 })
+
+// search api automatically
+// swapi.register(app, {
+//   basePath: '/v1',
+// })
 
 // feel free to use SPA or SSR
 router.get('/', async (ctx, next) => {
