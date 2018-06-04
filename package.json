@@ -1,6 +1,6 @@
 {
   "name": "koa-swapi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Build restful api like HapiJs",
   "main": "./index.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint --fix ./lib/*.js",
-    "test": "NODE_ENV=test mocha test/*.js"
+    "test": "NODE_ENV=test mocha test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "boom": "^7.1.1",
     "chalk": "^2.4.0",
     "debug": "^3.1.0",
+    "expect": "^23.1.0",
     "fast-safe-stringify": "^1.2.3",
     "hoek": "^5.0.3",
     "http-status": "^1.0.1",
@@ -55,6 +56,7 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
     "mocha": "^5.2.0",
-    "should": "^13.2.1"
+    "should": "^13.2.1",
+    "supertest": "^3.1.0"
   }
 }

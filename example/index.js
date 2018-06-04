@@ -11,7 +11,6 @@ app.use(bodyparser())
 
 // search api automatically
 swapi.register(app, {
-  basePath: '/v1',
 })
 
 // or directlly pass routes as parameter
