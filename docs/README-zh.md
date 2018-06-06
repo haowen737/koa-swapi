@@ -53,7 +53,7 @@ The most common API endpoint with HAPI.js is one that POST's a JSON body.
       method: 'POST',
       path: '/items',
       config: {
-          handler: (request, reply) => { reply('OK'); },
+          handler: (request, reply) => { },
           tags: ['api'],
           validate: {
               payload: Joi.object({
