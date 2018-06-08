@@ -37,6 +37,10 @@ module.exports = [{
           }
         }
       }
+    },
+    handler: (ctx) => {
+      ctx.status = 200;
+      ctx.body = 'miao223123miaomiao'
     }
   }
 }]
