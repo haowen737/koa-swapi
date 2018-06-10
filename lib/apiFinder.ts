@@ -7,12 +7,19 @@ const PATH_ROUTE = path.resolve(PATH_APP, './routes')
 const PATH_CONTROLLER = path.resolve(PATH_APP, './controller')
 const PATH_CTRL = dir => path.resolve(PATH_APP, './controller', dir)
 
+import { Route } from './intefaces/RouteConfig.interface'
+
 /**
  * silent means user pass routes as parameters
  *
  * @class Finder
  */
-class Finder {
+export default class Finder {
+  private routeFiles: Array<String>
+  private controllerFiles: Array<String>
+
+  public routes: Array<Route>
+  
   constructor ({
     routes
   }) {
@@ -146,5 +153,3 @@ class Finder {
     return path.resolve(PATH_APP, './routes', dir)
   }
 }
-
-module.exports = Finder

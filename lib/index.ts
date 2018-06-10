@@ -1,18 +1,32 @@
-const Hoek = require('hoek')
-const KoaRouter = require('koa-router')
-const debug = require('debug')('swapi')
+// import * as Hoek from 'hoek'
+import * as Hoek from 'hoek'
+import * as KoaRouter from 'koa-router'
+import * as Koa from 'koa'
+import * as debug from 'debug'
 
-const Finder = require('./apiFinder')
-const swaggerServer = require('./swaggerServer')
-const validator = require('./validator')
+import Finder from './apiFinder'
+import swaggerServer from './swaggerServer'
+import validator from './validator'
+
+import { Route } from './intefaces/RouteConfig.interface'
+
+interface Options {
+  routes?: Array<Route>
+  basePath?: string
+}
 
 /**
  * Expose Swapi class
  * Inherits from KoaRouter.prototype
  */
-module.exports = class Swapi extends KoaRouter {
+export class Swapi {
+  private routes: Array<KoaRouter>
+  private router: KoaRouter
+  private finder: Finder
+  private app: Koa
+  private options: Options
+  
   constructor () {
-    super()
     this.routes = []
     this.router = new KoaRouter()
   }
@@ -27,12 +41,12 @@ module.exports = class Swapi extends KoaRouter {
    * @returns
    * @memberof Swapi
    */
-  async register (app, options = {}) {
+  async register (app: Koa, options: Options = {}) {
     this.finder = new Finder({ routes: options.routes })
     this.app = app
     this.options = options
-    this._buildKoaRoutes()
-    this._buildSwagger()
+    this.buildKoaRoutes()
+    this.buildSwagger()
 
     return this
   }
@@ -42,19 +56,19 @@ module.exports = class Swapi extends KoaRouter {
    * routes can be passed from params or use api finder find;
    * api finder will automatically find /routes and /controllers;
    */
-  _buildKoaRoutes () {
+  private buildKoaRoutes () {
     const routes = this.options.routes
     const routeList = routes
       ? this.finder.combineControllers(routes)
       : this.finder.combineRoutes()
 
     for (let i = 0; i < routeList.length; i++) {
-      const spec = routeList[i]
+      const spec: Route = routeList[i]
 
       // this.routes.push(spec)
-      this._createRoute(spec)
+      this.createRoute(spec)
     }
-    this._useRoute()
+    this.useRoute()
   }
 
   /**
@@ -63,7 +77,7 @@ module.exports = class Swapi extends KoaRouter {
    * @param {any} spec
    * @memberof Swapi
    */
-  _createRoute (spec) {
+  private createRoute (spec: Route) {
     const { basePath } = this.options
     const route = this.router
 
@@ -72,8 +86,7 @@ module.exports = class Swapi extends KoaRouter {
     const validate = Hoek.reach(spec, 'config.validate')
     const id = Hoek.reach(spec, 'config.id')
     const handler = Hoek.reach(spec, 'config.handler')
-    // const mountRequestMiddleware = this._mountRequest()
-    const validatorMiddleware = this._validator(validate)
+    const validatorMiddleware = this.validator(validate)
 
     if (!method) {
       throw new Error('method is undefined')
@@ -86,7 +99,6 @@ module.exports = class Swapi extends KoaRouter {
     }
 
     const middlewares = [
-      // mountRequestMiddleware,
       validatorMiddleware,
       handler
     ]
@@ -99,28 +111,11 @@ module.exports = class Swapi extends KoaRouter {
   }
 
   /**
-   * Duplicate all params on route obj
-   *
-   * @returns
-   * @memberof Swapi
-   */
-  _mountRequest () {
-    const route = this.route
-    return async (ctx, next) => {
-      route.request = {}
-      route.request.query = ctx.query
-      route.request.params = ctx.params
-      route.request.body = ctx.request.body
-      await next()
-    }
-  }
-
-  /**
    * middleware bedore handler
    *
    * @api private
    */
-  _validator (validate) {
+  private validator (validate) {
     return async (ctx, next) => {
       validate && await validator.valid(validate, ctx)
 
@@ -131,7 +126,7 @@ module.exports = class Swapi extends KoaRouter {
   /**
    * call swagger builder
    */
-  _buildSwagger () {
+  private buildSwagger () {
     const { basePath } = this.options
     // const fileList = this.finder.findRouteFiles()
     const customSetting = { basePath }
@@ -144,17 +139,19 @@ module.exports = class Swapi extends KoaRouter {
     })
   }
 
-  load () {
+  private load () {
     return this.router.routes()
   }
 
-  allowedMethods () {
+  private allowedMethods () {
     return this.router.allowedMethods()
   }
 
-  _useRoute () {
+  private useRoute () {
     const routes = this.load()
     const allowedMethods = this.allowedMethods()
-    this.app.use(routes, allowedMethods)
+    this.app
+      .use(routes)
+      .use(allowedMethods)
   }
 }

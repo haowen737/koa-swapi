@@ -1,6 +1,6 @@
 const Koa = require('koa')
 const bodyparser = require('koa-bodyparser')
-const Swapi = require('../lib')
+const {Swapi} = require('../')
 const router = require('koa-router')()
 const routes = require('./routes')
 
