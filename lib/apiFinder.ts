@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const debug = require('debug')('apiFinder')
+const should = require('should')
 
 const PATH_APP = process.cwd()
 const PATH_ROUTE = path.resolve(PATH_APP, './routes')
@@ -108,7 +109,8 @@ export default class Finder {
       const id = spe.id
       const controller = handler[method] || handler[id]
 
-      if (!controller) { throw new Error(`controller for route ${spe.path} not defined`) }
+      should.exist(method, `'method' should be defined on route ${spe.path}`)
+      should.exist(controller, `'controller' should be defined on route ${spe.path}`)
 
       if (!spe.config.handler) {
         spe.config.handler = controller
@@ -127,7 +129,7 @@ export default class Finder {
     const ctrlPath = PATH_CTRL(dir)
     const ctrlExist = fs.existsSync(ctrlPath)
 
-    if (!ctrlExist) { throw new Error(`route ${dir} should have controller defined`) }
+    should.exist(ctrlExist, `route ${dir} should have controller defined`)
 
     return require(ctrlPath)
   }

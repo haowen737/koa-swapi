@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Hoek = require("hoek");
 const KoaRouter = require("koa-router");
 const debug = require("debug");
+const should = require("should");
 const apiFinder_1 = require("./apiFinder");
 const swaggerServer_1 = require("./swaggerServer");
 const validator_1 = require("./validator");
@@ -76,15 +77,7 @@ class Swapi {
         const id = Hoek.reach(spec, 'config.id');
         const handler = Hoek.reach(spec, 'config.handler');
         const validatorMiddleware = this.validator(validate);
-        if (!method) {
-            throw new Error('method is undefined');
-        }
-        if (!path) {
-            throw new Error('path is undefined');
-        }
-        if (!handler) {
-            throw new Error('handler is undefined');
-        }
+        should.exist(path, `'path' should be defined on route ${path}`);
         const middlewares = [
             validatorMiddleware,
             handler

@@ -3,6 +3,7 @@ import * as Hoek from 'hoek'
 import * as KoaRouter from 'koa-router'
 import * as Koa from 'koa'
 import * as debug from 'debug'
+import * as should from 'should'
 
 import Finder from './apiFinder'
 import swaggerServer from './swaggerServer'
@@ -80,7 +81,6 @@ export class Swapi {
   private createRoute (spec: Route) {
     const { basePath } = this.options
     const route = this.router
-
     const path = spec.path
     const method = spec.method
     const validate = Hoek.reach(spec, 'config.validate')
@@ -88,15 +88,7 @@ export class Swapi {
     const handler = Hoek.reach(spec, 'config.handler')
     const validatorMiddleware = this.validator(validate)
 
-    if (!method) {
-      throw new Error('method is undefined')
-    }
-    if (!path) {
-      throw new Error('path is undefined')
-    }
-    if (!handler) {
-      throw new Error('handler is undefined')
-    }
+    should.exist(path, `'path' should be defined on route ${path}`)
 
     const middlewares = [
       validatorMiddleware,

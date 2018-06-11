@@ -10,13 +10,13 @@ const swapi = new Swapi()
 app.use(bodyparser())
 
 // search api automatically
-swapi.register(app)
+// swapi.register(app)
 
 // or directlly pass routes as parameter
-// swapi.register(app, {
-//   basePath: '/v1',
-//   routes
-// })
+swapi.register(app, {
+  basePath: '/v1',
+  routes,
+})
 
 // feel free to use SPA or SSR
 router.get('/', async (ctx, next) => {
