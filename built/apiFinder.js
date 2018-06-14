@@ -16,6 +16,8 @@ const PATH_CTRL = dir => path.resolve(PATH_APP, './controller', dir);
 class Finder {
     constructor({ routes }) {
         this.routes = routes || [];
+        this.routeFiles = [];
+        this.controllerFiles = [];
         routes
             ? this.hotStart()
             : this.coldStart();
@@ -28,9 +30,11 @@ class Finder {
     // TODO: 当routes以参数传入时，apiFinder的运行应该完全不一样
     hotStart() {
     }
+    // FIXME: 决定是否抛出错误，没有传入routes且没有找到routes目录的情况下
     coldStart() {
         if (!fs.existsSync(PATH_ROUTE)) {
-            throw new Error('未找到路由文件路径');
+            // throw new Error('未找到路由文件路径')
+            return;
         }
         this.routeFiles = fs.readdirSync(PATH_ROUTE) || [];
         this.controllerFiles = fs.readdirSync(PATH_CONTROLLER) || [];

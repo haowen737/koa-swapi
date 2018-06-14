@@ -23,7 +23,7 @@ const validator_1 = require("./validator");
 class Swapi {
     constructor() {
         this.routes = [];
-        this.router = new KoaRouter();
+        this.koaRouter = new KoaRouter();
     }
     /**
      * Main func,
@@ -37,9 +37,11 @@ class Swapi {
      */
     register(app, options = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.finder = new apiFinder_1.default({ routes: options.routes });
-            this.app = app;
+            const { routes, middleware } = options;
+            this.finder = new apiFinder_1.default({ routes });
             this.options = options;
+            this.middleware = middleware || [];
+            this.app = app;
             this.buildKoaRoutes();
             this.buildSwagger();
             return this;
@@ -70,7 +72,9 @@ class Swapi {
      */
     createRoute(spec) {
         const { basePath } = this.options;
-        const route = this.router;
+        const route = this.koaRouter;
+        // const customMiddleware = this.customMiddleware()
+        const customMiddleware = this.middleware;
         const path = spec.path;
         const method = spec.method;
         const validate = Hoek.reach(spec, 'config.validate');
@@ -78,13 +82,14 @@ class Swapi {
         const handler = Hoek.reach(spec, 'config.handler');
         const validatorMiddleware = this.validator(validate);
         should.exist(path, `'path' should be defined on route ${path}`);
-        const middlewares = [
+        const middleware = [
             validatorMiddleware,
+            ...customMiddleware,
             handler
         ];
         const fullPath = `${basePath || ''}${path}`;
         debug(fullPath);
-        route[method](fullPath, ...middlewares);
+        route[method](fullPath, ...middleware);
     }
     /**
      * middleware bedore handler
@@ -112,11 +117,13 @@ class Swapi {
             customSetting
         });
     }
+    customMiddleware() {
+    }
     load() {
-        return this.router.routes();
+        return this.koaRouter.routes();
     }
     allowedMethods() {
-        return this.router.allowedMethods();
+        return this.koaRouter.allowedMethods();
     }
     useRoute() {
         const routes = this.load();

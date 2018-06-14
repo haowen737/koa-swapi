@@ -6,7 +6,6 @@ const ValidType = ['params', 'query', 'payload']
 
 class validator {
   valid (validate, ctx) {
-    // console.log('enter valid -----', validate)
     for (let i = 0; i < ValidType.length; i++) {
       const type = internals.getCurrentValidType(i)
       const schema = internals.getCurrentValidSchema(validate, type)
@@ -14,7 +13,7 @@ class validator {
   
       if (schema) {
         const { error } = Joi.validate(data, schema)
-  
+
         if (error) {
           ctx.throw(400, 'ValidationError', error)
         }

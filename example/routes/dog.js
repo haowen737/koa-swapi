@@ -20,14 +20,14 @@ module.exports = [{
     }
   }
 }, {
-  method: 'put',
+  method: 'post',
   path: '/dog',
   config: {
     summary: '创建一只呆狗',
     description: '要创建一只呆狗的时候可以调这个接口',
     validate: {
       payload: Joi.object({
-        a: Joi.number(),
+        a: Joi.number().integer(),
         b: Joi.number().required()
       }).label('呆狗对象').description('呆狗对象的详情'),
       output: {

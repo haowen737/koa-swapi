@@ -3,7 +3,7 @@ const expect = require('expect')
 const http = require('http')
 const Koa = require('koa')
 
-const Swapi = require('..')
+const { Swapi } = require('..')
 
 const routes = [{
   method: 'get',

@@ -25,6 +25,9 @@ export default class Finder {
     routes
   }) {
     this.routes = routes || []
+    this.routeFiles = []
+    this.controllerFiles = []
+
     routes
       ? this.hotStart()
       : this.coldStart()
@@ -40,9 +43,11 @@ export default class Finder {
 
   }
 
+  // FIXME: 决定是否抛出错误，没有传入routes且没有找到routes目录的情况下
   coldStart () {
     if (!fs.existsSync(PATH_ROUTE)) {
-      throw new Error('未找到路由文件路径')
+      // throw new Error('未找到路由文件路径')
+      return
     }
     this.routeFiles = fs.readdirSync(PATH_ROUTE) || []
     this.controllerFiles = fs.readdirSync(PATH_CONTROLLER) || []

@@ -6,7 +6,6 @@ const Joi = require('joi');
 const ValidType = ['params', 'query', 'payload'];
 class validator {
     valid(validate, ctx) {
-        // console.log('enter valid -----', validate)
         for (let i = 0; i < ValidType.length; i++) {
             const type = internals.getCurrentValidType(i);
             const schema = internals.getCurrentValidSchema(validate, type);
