@@ -1,19 +1,19 @@
 // import * as Hoek from 'hoek'
-import * as Hoek from 'hoek'
-import * as KoaRouter from 'koa-router'
-import * as Koa from 'koa'
-import * as debug from 'debug'
-import * as should from 'should'
+import * as debug from "debug"
+import * as Hoek from "hoek"
+import * as Koa from "koa"
+import * as KoaRouter from "koa-router"
+import * as should from "should"
 
-import Finder from './apiFinder'
-import swaggerServer from './swaggerServer'
-import validator from './validator'
+import Finder from "./apiFinder"
+import swaggerServer from "./swaggerServer"
+import validator from "./validator"
 
-import { Route } from './intefaces/RouteConfig.interface'
+import { Route } from "./intefaces/RouteConfig.interface"
 
 interface Options {
-  routes?: Array<Route>
-  middleware?: Array<any>,
+  routes?: Route[]
+  middleware?: any[]
   basePath?: string
 }
 
@@ -22,14 +22,14 @@ interface Options {
  * Inherits from KoaRouter.prototype
  */
 export class Swapi {
-  private routes: Array<KoaRouter>
+  private routes: KoaRouter[]
   private koaRouter: KoaRouter
-  private middleware: Array<any>
+  private middleware: any[]
   private options: Options
   private finder: Finder
   private app: Koa
-  
-  constructor () {
+
+  constructor() {
     this.routes = []
     this.koaRouter = new KoaRouter()
   }
@@ -44,13 +44,13 @@ export class Swapi {
    * @returns
    * @memberof Swapi
    */
-  async register (app: Koa, options: Options = {}) {
+  public async register(app: Koa, options: Options = {}) {
     const { routes, middleware } = options
     this.finder = new Finder({ routes })
     this.options = options
     this.middleware = middleware || []
     this.app = app
-    
+
     this.buildKoaRoutes()
     this.buildSwagger()
 
@@ -62,18 +62,18 @@ export class Swapi {
    * routes can be passed from params or use api finder find;
    * api finder will automatically find /routes and /controllers;
    */
-  private buildKoaRoutes () {
+  private buildKoaRoutes() {
     const routes = this.options.routes
     const routeList = routes
       ? this.finder.combineControllers(routes)
       : this.finder.combineRoutes()
 
-    for (let i = 0; i < routeList.length; i++) {
-      const spec: Route = routeList[i]
-
-      // this.routes.push(spec)
-      this.createRoute(spec)
+    for (const spec in routeList) {
+      if (routeList[spec]) {
+        this.createRoute(routeList[spec])
+      }
     }
+
     this.useRoute()
   }
 
@@ -83,26 +83,26 @@ export class Swapi {
    * @param {any} spec
    * @memberof Swapi
    */
-  private createRoute (spec: Route) {
+  private createRoute(spec: Route) {
     const { basePath } = this.options
     const route = this.koaRouter
     // const customMiddleware = this.customMiddleware()
     const customMiddleware = this.middleware
     const path = spec.path
     const method = spec.method
-    const validate = Hoek.reach(spec, 'config.validate')
-    const id = Hoek.reach(spec, 'config.id')
-    const handler = Hoek.reach(spec, 'config.handler')
+    const validate = Hoek.reach(spec, "config.validate")
+    const id = Hoek.reach(spec, "config.id")
+    const handler = Hoek.reach(spec, "config.handler")
     const validatorMiddleware = this.validator(validate)
 
     should.exist(path, `'path' should be defined on route ${path}`)
     const middleware = [
       validatorMiddleware,
       ...customMiddleware,
-      handler
+      handler,
     ]
 
-    const fullPath = `${basePath || ''}${path}`
+    const fullPath = `${basePath || ""}${path}`
 
     debug(fullPath)
 
@@ -114,9 +114,11 @@ export class Swapi {
    *
    * @api private
    */
-  private validator (validate) {
+  private validator(validate) {
     return async (ctx, next) => {
-      validate && await validator.valid(validate, ctx)
+      if (validate) {
+        validator.valid(validate, ctx)
+      }
 
       await next()
     }
@@ -125,7 +127,7 @@ export class Swapi {
   /**
    * call swagger builder
    */
-  private buildSwagger () {
+  private buildSwagger() {
     const { basePath } = this.options
     // const fileList = this.finder.findRouteFiles()
     const customSetting = { basePath }
@@ -134,23 +136,19 @@ export class Swapi {
       app: this.app,
       // fileList,
       routes,
-      customSetting
+      customSetting,
     })
   }
 
-  private customMiddleware () {
-    
-  }
-
-  private load () {
+  private load() {
     return this.koaRouter.routes()
   }
 
-  private allowedMethods () {
+  private allowedMethods() {
     return this.koaRouter.allowedMethods()
   }
 
-  private useRoute () {
+  private useRoute() {
     const routes = this.load()
     const allowedMethods = this.allowedMethods()
 

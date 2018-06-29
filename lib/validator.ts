@@ -1,21 +1,19 @@
-// const Boom = require('boom')
-const Joi = require('joi')
-// const debug = require('debug')('swapi-validator')
+import * as Joi from "joi"
 
-const ValidType = ['params', 'query', 'payload']
+const ValidType = ["params", "query", "payload"]
 
-class validator {
-  valid (validate, ctx) {
+class Validator {
+  public valid(validate, ctx) {
     for (let i = 0; i < ValidType.length; i++) {
       const type = internals.getCurrentValidType(i)
       const schema = internals.getCurrentValidSchema(validate, type)
       const data = internals.getCurrentValidData(ctx, type)
-  
+
       if (schema) {
         const { error } = Joi.validate(data, schema)
 
         if (error) {
-          ctx.throw(400, 'ValidationError', error)
+          ctx.throw(400, "ValidationError", error)
         }
       }
     }
@@ -31,28 +29,28 @@ const internals: any = {}
  * we use joi validate request with schema;
  */
 
-internals.getCurrentValidType = function (i) {
+internals.getCurrentValidType = (i) => {
   return ValidType[i]
 }
 
-internals.getCurrentValidSchema = function (validate, type) {
+internals.getCurrentValidSchema = (validate, type) => {
   const schema = validate[type]
 
-  if (schema && schema.schemaType !== 'object') {
+  if (schema && schema.schemaType !== "object") {
     return Joi.object().keys(schema)
   }
 
   return schema
 }
 
-internals.getCurrentValidData = function (ctx, type) {
-  if (type === 'payload') {
+internals.getCurrentValidData = (ctx, type) => {
+  if (type === "payload") {
     return ctx.request.body
   }
 
   return ctx[type]
 }
 
-export default new validator()
+export default new Validator()
 
 
