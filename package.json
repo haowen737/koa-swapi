@@ -11,6 +11,7 @@
   },
   "scripts": {
     "watch": "tsc -w --listFiles",
+    "build": "tsc",
     "lint": "./node_modules/.bin/tslint --fix ./lib/*.ts",
     "test": "NODE_ENV=test mocha"
   },

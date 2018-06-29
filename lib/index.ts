@@ -9,7 +9,7 @@ import Finder from "./apiFinder"
 import swaggerServer from "./swaggerServer"
 import validator from "./validator"
 
-import { Route } from "./intefaces/RouteConfig.interface"
+import { Route } from "./interfaces/RouteConfig.interface"
 
 interface Options {
   routes?: Route[]

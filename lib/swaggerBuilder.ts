@@ -1,9 +1,10 @@
+
 import * as debug from "debug"
 import * as fs from "fs"
 import * as path from "path"
 
 import defaults from "./defaults"
-import * as Builder from "./swagger/builder"
+import * as builder from "./swagger/builder"
 
 const PATH_APP = process.cwd()
 const PATH_ROUTE = path.resolve(PATH_APP, "./routes")
@@ -17,7 +18,7 @@ class SwaggerBuilder {
     const appInfo = internals.readAppPkg()
     const settings = Object.assign(defaults, appInfo, customOption)
 
-    return await Builder.getSwaggerJSON(settings, routes, ctx)
+    return await builder.getSwaggerJSON(settings, routes, ctx)
   }
 }
 

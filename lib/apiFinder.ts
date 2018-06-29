@@ -3,7 +3,7 @@ import * as fs from "fs"
 import * as path from "path"
 import * as should from "should"
 
-import { Route } from "./intefaces/RouteConfig.interface"
+import { Route } from "./interfaces/RouteConfig.interface"
 
 const PATH_APP = process.cwd()
 const PATH_ROUTE = path.resolve(PATH_APP, "./routes")
