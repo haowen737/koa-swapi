@@ -21,7 +21,7 @@ interface Options {
  * Expose Swapi class
  * Inherits from KoaRouter.prototype
  */
-export class Swapi {
+export default class Swapi {
   private routes: KoaRouter[]
   private koaRouter: KoaRouter
   private middleware: any[]

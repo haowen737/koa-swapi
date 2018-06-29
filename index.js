@@ -1,2 +1,1 @@
-process.on('unhandledRejection', (reason, p) => { throw reason });
-module.exports = require('./built')
+module.exports = require('./built/lib')

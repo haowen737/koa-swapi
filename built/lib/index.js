@@ -133,5 +133,5 @@ class Swapi {
             .use(allowedMethods);
     }
 }
-exports.Swapi = Swapi;
+exports.default = Swapi;
 //# sourceMappingURL=index.js.map
