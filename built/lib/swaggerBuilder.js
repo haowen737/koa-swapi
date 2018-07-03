@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const debug = require("debug");
 const fs = require("fs");
 const path = require("path");
-const defaults_1 = require("./defaults");
+const swagger_1 = require("./config/defaults/swagger");
 const builder = require("./swagger/builder");
 const PATH_APP = process.cwd();
 const PATH_ROUTE = path.resolve(PATH_APP, "./routes");
@@ -21,7 +21,7 @@ class SwaggerBuilder {
     build(routes, customOption, ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             const appInfo = internals.readAppPkg();
-            const settings = Object.assign(defaults_1.default, appInfo, customOption);
+            const settings = Object.assign(swagger_1.default, appInfo, customOption);
             return yield builder.getSwaggerJSON(settings, routes, ctx);
         });
     }

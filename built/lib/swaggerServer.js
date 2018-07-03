@@ -14,13 +14,13 @@ const Koa = require("koa");
 const koa_mount_1 = require("koa-mount");
 const serve = require("koa-static");
 const SwaggerUI = require("../public/swagger-ui-dist");
-const defaults_1 = require("./defaults");
+const swagger_1 = require("./config/defaults/swagger");
 const swaggerBuilder_1 = require("./swaggerBuilder");
 const server = new Koa();
 const printf = console.log;
 const DEBUG = debug("swagger:server");
 const swaggerUiAssetPath = SwaggerUI.getAbsoluteFSPath();
-const { documentationPath, jsonPath } = defaults_1.default;
+const { documentationPath, jsonPath } = swagger_1.default;
 class SwaggerServer {
     start({ app, fileList, routes, customSetting, }) {
         server.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
