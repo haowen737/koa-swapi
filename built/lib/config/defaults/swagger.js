@@ -29,4 +29,4 @@ exports.default = {
     acceptToProduce: true,
     pathReplacements: [],
 };
-//# sourceMappingURL=defaults.js.map
+//# sourceMappingURL=swagger.js.map

@@ -5,7 +5,7 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi } = require('..')
+const { Swapi } = require('../built/lib')
 
 const routes = [{
   method: 'get',

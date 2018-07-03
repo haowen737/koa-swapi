@@ -1,11 +1,11 @@
 import chalk from "chalk"
 import * as debug from "debug"
 import * as Koa from "koa"
-import mount from "koa-mount"
+import * as mount from "koa-mount"
 import * as serve from "koa-static"
 import * as SwaggerUI from "../public/swagger-ui-dist"
 
-import setting from "./defaults"
+import setting from "./config/defaults/swagger"
 import swaggerBuilder from "./swaggerBuilder"
 
 const server = new Koa()

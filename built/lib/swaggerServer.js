@@ -11,16 +11,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const debug = require("debug");
 const Koa = require("koa");
-const koa_mount_1 = require("koa-mount");
+const mount = require("koa-mount");
 const serve = require("koa-static");
 const SwaggerUI = require("../public/swagger-ui-dist");
-const defaults_1 = require("./defaults");
+const swagger_1 = require("./config/defaults/swagger");
 const swaggerBuilder_1 = require("./swaggerBuilder");
 const server = new Koa();
 const printf = console.log;
 const DEBUG = debug("swagger:server");
 const swaggerUiAssetPath = SwaggerUI.getAbsoluteFSPath();
-const { documentationPath, jsonPath } = defaults_1.default;
+const { documentationPath, jsonPath } = swagger_1.default;
 class SwaggerServer {
     start({ app, fileList, routes, customSetting, }) {
         server.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
@@ -31,14 +31,14 @@ class SwaggerServer {
                 yield next();
             }
         }));
-        server.use(koa_mount_1.default(documentationPath, serve(swaggerUiAssetPath)));
+        server.use(mount(documentationPath, serve(swaggerUiAssetPath)));
         printf(chalk_1.default.blue.bold("koa-swapi"), "document build succeed, path", chalk_1.default.blue(documentationPath));
         DEBUG("documentationPath", documentationPath);
-        server.use(koa_mount_1.default(jsonPath, (ctx, next) => __awaiter(this, void 0, void 0, function* () {
+        server.use(mount(jsonPath, (ctx, next) => __awaiter(this, void 0, void 0, function* () {
             const swaggerJSON = yield swaggerBuilder_1.default.build(routes, customSetting, ctx);
             ctx.body = JSON.stringify(swaggerJSON);
         })));
-        app.use(koa_mount_1.default(server));
+        app.use(mount(server));
     }
 }
 // module.exports = function server (desc) {

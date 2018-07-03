@@ -2,7 +2,7 @@
   "name": "koa-swapi",
   "version": "1.0.7",
   "description": "Build restful api like HapiJs",
-  "main": "./index.js",
+  "main": "./lib/index.js",
   "directories": {
     "lib": "lib"
   },
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "watch": "tsc -w --listFiles",
-    "build": "tsc",
+    "build": "rimraf built && tsc",
     "lint": "./node_modules/.bin/tslint --fix ./lib/*.ts",
     "test": "NODE_ENV=test mocha"
   },
@@ -35,7 +35,6 @@
     "@types/json-schema": "^6.0.1",
     "@types/koa": "^2.0.46",
     "@types/koa-router": "^7.0.28",
-    "boom": "^7.1.1",
     "chalk": "^2.4.0",
     "debug": "^3.1.0",
     "fast-safe-stringify": "^1.2.3",
@@ -49,11 +48,13 @@
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "lodash": "^4.17.10",
+    "should": "^13.2.1",
     "swagger-parser": "^5.0.0",
-    "swagger-ui-dist": "^3.14.0",
-    "should": "^13.2.1"
+    "swagger-ui-dist": "^3.14.0"
   },
   "devDependencies": {
+    "@types/koa-mount": "^3.0.1",
+    "@types/koa-static": "^4.0.0",
     "chalk": "^2.3.1",
     "code": "^5.2.0",
     "eslint": "^4.19.1",
@@ -64,6 +65,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "expect": "^23.1.0",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "supertest": "^3.1.0",
     "tslint": "^5.10.0",
     "typescript": "^2.9.1"

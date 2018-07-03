@@ -3,7 +3,7 @@ import * as debug from "debug"
 import * as fs from "fs"
 import * as path from "path"
 
-import defaults from "./defaults"
+import defaults from "./config/defaults/swagger"
 import * as builder from "./swagger/builder"
 
 const PATH_APP = process.cwd()
