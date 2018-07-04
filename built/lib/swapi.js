@@ -14,9 +14,9 @@ const Hoek = require("hoek");
 const KoaRouter = require("koa-router");
 const should = require("should");
 const apiFinder_1 = require("./apiFinder");
+const config_1 = require("./config");
 const swaggerServer_1 = require("./swaggerServer");
 const validator_1 = require("./validator");
-const config_1 = require("./config");
 /**
  * Expose Swapi class
  * Inherits from KoaRouter.prototype
