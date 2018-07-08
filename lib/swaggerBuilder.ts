@@ -3,7 +3,7 @@ import * as debug from "debug"
 import * as fs from "fs"
 import * as path from "path"
 
-import defaults from "./config/defaults/swagger"
+// import defaults from "./configSeeker/defaults/swagger"
 import * as builder from "./swagger/builder"
 
 const PATH_APP = process.cwd()
@@ -13,10 +13,10 @@ const DEBUG = debug("swagger-builder")
 const internals: any = {}
 
 class SwaggerBuilder {
-  public async build(routes, customOption, ctx) {
+  public async build(routes, setting, ctx) {
 
     const appInfo = internals.readAppPkg()
-    const settings = Object.assign(defaults, appInfo, customOption)
+    const settings = Object.assign(appInfo, setting)
 
     return await builder.getSwaggerJSON(settings, routes, ctx)
   }

@@ -6,15 +6,16 @@ import * as KoaRouter from "koa-router"
 import * as should from "should"
 
 import Finder from "./apiFinder"
-import configSeeker from "./config"
+import ConfigSeeker from "./configSeeker"
 import swaggerServer from "./swaggerServer"
 import validator from "./validator"
 
 import { Route } from "./interfaces/RouteConfig.interface"
 
-interface Options {
+interface Argv {
   routes?: Route[]
   middleware?: any[]
+  options?: any
 }
 
 /**
@@ -33,7 +34,6 @@ export default class Swapi {
   constructor() {
     this.routes = []
     this.koaRouter = new KoaRouter()
-    this.config = configSeeker.base
   }
 
   /**
@@ -42,13 +42,14 @@ export default class Swapi {
    *  step 2: build swagger documant;
    * options include custom settings and routes(for version 1.0)
    * @param {Server} app
-   * @param {Object} options
+   * @param {Object} argv
    * @returns
    * @memberof Swapi
    */
-  public async register(app: Koa, options: Options = {}) {
-    const { routes, middleware } = options
+  public async register(app: Koa, argv: Argv = {}) {
+    const { options = {}, routes, middleware } = argv
     this.finder = new Finder({ routes })
+    this.config = new ConfigSeeker(options)
     // this.options = options
     this.middleware = middleware || []
     this.app = app
@@ -85,7 +86,7 @@ export default class Swapi {
    * @memberof Swapi
    */
   private createRoute(spec: Route) {
-    const { basePath } = this.config
+    const { basePath } = this.config.base
     const route = this.koaRouter
     // const customMiddleware = this.customMiddleware()
     const customMiddleware = this.middleware
@@ -129,15 +130,16 @@ export default class Swapi {
    * call swagger builder
    */
   private buildSwagger() {
-    const { basePath } = this.config
+    // const { basePath } = this.config
     // const fileList = this.finder.findRouteFiles()
-    const customSetting = { basePath }
+    // const customSetting = { basePath }
+    const setting = this.config.swagger
     const routes = this.finder.routes
     swaggerServer.start({
       app: this.app,
       // fileList,
       routes,
-      customSetting,
+      setting,
     })
   }
 

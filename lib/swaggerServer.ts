@@ -3,24 +3,24 @@ import * as debug from "debug"
 import * as Koa from "koa"
 import * as mount from "koa-mount"
 import * as serve from "koa-static"
-import * as SwaggerUI from "../public/swagger-ui-dist"
+import * as SwaggerUIDist from "../public/swagger-ui-dist"
 
-import setting from "./config/defaults/swagger"
+// import setting from "./configSeeker/defaults/swagger"
 import swaggerBuilder from "./swaggerBuilder"
 
 const server = new Koa()
 const printf = console.log
 const DEBUG = debug("swagger:server")
 
-const swaggerUiAssetPath = SwaggerUI.getAbsoluteFSPath()
+const swaggerUiAssetPath = SwaggerUIDist.getAbsoluteFSPath()
 
-const { documentationPath, jsonPath } = setting
+// const { documentationPath, jsonPath } = setting
 
 interface SwaggerServerOption {
   app: any
   fileList?: any
   routes: any
-  customSetting: any
+  setting: any
 }
 
 class SwaggerServer {
@@ -28,15 +28,17 @@ class SwaggerServer {
     app,
     fileList,
     routes,
-    customSetting,
+    setting,
   }: SwaggerServerOption) {
-    server.use(async (ctx, next) => {
-      if (ctx.path === documentationPath) { // koa static barfs on root url w/o trailing slash
-        ctx.redirect(ctx.path + "/")
-      } else {
-        await next()
-      }
-    })
+    const { documentationPath, jsonPath } = setting
+    console.log('documentationPath---', documentationPath, swaggerUiAssetPath)
+    // server.use(async (ctx, next) => {
+    //   if (ctx.path === documentationPath) { // koa static barfs on root url w/o trailing slash
+    //     ctx.redirect(ctx.path + "/")
+    //   } else {
+    //     await next()
+    //   }
+    // })
 
     server.use(mount(documentationPath, serve(swaggerUiAssetPath)))
 
@@ -44,7 +46,7 @@ class SwaggerServer {
     DEBUG("documentationPath", documentationPath)
 
     server.use(mount(jsonPath, async (ctx, next) => {
-      const swaggerJSON = await swaggerBuilder.build(routes, customSetting, ctx)
+      const swaggerJSON = await swaggerBuilder.build(routes, setting, ctx)
 
       ctx.body = JSON.stringify(swaggerJSON)
     }))

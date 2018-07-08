@@ -5,7 +5,7 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi } = require('../built/lib')
+const { Swapi } = require('../built')
 
 const handler = (ctx) => {
   console.log('ctx.request.body', ctx.request.body)

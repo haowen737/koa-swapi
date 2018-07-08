@@ -1,3 +1,3 @@
 import Swapi from "./swapi"
 
-export = Swapi
+export { Swapi }
