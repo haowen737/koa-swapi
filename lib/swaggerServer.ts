@@ -19,7 +19,7 @@ const swaggerUiAssetPath = SwaggerUIDist.getAbsoluteFSPath()
 interface SwaggerServerOption {
   app: any
   fileList?: any
-  routes: any
+  apis: any
   setting: any
 }
 
@@ -27,7 +27,7 @@ class SwaggerServer {
   public start({
     app,
     fileList,
-    routes,
+    apis,
     setting,
   }: SwaggerServerOption) {
     const { documentationPath, jsonPath } = setting
@@ -46,7 +46,7 @@ class SwaggerServer {
     DEBUG("documentationPath", documentationPath)
 
     server.use(mount(jsonPath, async (ctx, next) => {
-      const swaggerJSON = await swaggerBuilder.build(routes, setting, ctx)
+      const swaggerJSON = await swaggerBuilder.build(apis, setting, ctx)
 
       ctx.body = JSON.stringify(swaggerJSON)
     }))

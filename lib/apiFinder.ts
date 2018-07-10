@@ -2,8 +2,10 @@ import * as debug from "debug"
 import * as fs from "fs"
 import * as path from "path"
 import * as should from "should"
+import * as Joi from 'joi'
 
 import { Route } from "./interfaces/RouteConfig.interface"
+import RouteSchema from './schemas/route'
 
 const PATH_APP = process.cwd()
 const PATH_ROUTE = path.resolve(PATH_APP, "./routes")
@@ -62,7 +64,10 @@ export default class Finder {
     const regDoubleSlash = /\/(\w+)\//
     const regSingleSlash = /\/(\w+)/
     routes.forEach((route) => {
-      if (route.config.handler) {
+
+      Joi.assert(route, RouteSchema)
+      
+      if (route.config && route.config.handler) {
         this.routes.push(route)
         return
       }

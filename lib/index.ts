@@ -1,3 +1,4 @@
 import Swapi from "./swapi"
+import SwapiBuilder from './apiBuilder'
 
-export { Swapi }
+export { Swapi, SwapiBuilder as api }

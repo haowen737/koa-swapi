@@ -1,11 +1,11 @@
 const controller = module.exports = {}
 
-controller.get = async (ctx) => {
+controller.getDog = async (ctx) => {
   ctx.status = 201;
   ctx.body = 'get dog ok'
 }
 
-controller.put = async (ctx) => {
+controller.postDog = async (ctx) => {
   ctx.status = 201;
   ctx.body = {
     name: 'post dog ok'

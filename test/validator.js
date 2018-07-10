@@ -5,37 +5,45 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi } = require('../built')
+const { Swapi, api } = require('../built')
 
 const handler = (ctx) => {
   console.log('ctx.request.body', ctx.request.body)
   ctx.body = 'test ok'
 }
 
-const formatGetRoutes = (path, validate) => [{
-  method: 'get',
-  path,
-  config: { validate, handler }
-}]
+const formatGetRoutes = (path, validate) => [
+  api
+    .schemas([{
+      method: 'get',
+      path,
+      config: { id: 'handler', validate }
+    }])
+    .handler({ handler })
+]
 
-const formatPostRoutes = (path, validate) => [{
-  method: 'post',
-  path,
-  config: { validate, handler }
-}]
+const formatPostRoutes = (path, validate) => [
+  api
+    .schemas([{
+      method: 'post',
+      path,
+      config: { id: 'handler', validate }
+    }])
+    .handler({ handler })
+]
 
 describe('Validator', function () {
   it('can validate params', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
 
-    const routes = formatGetRoutes('/test/:id', {
+    const apis = formatGetRoutes('/test/:id', {
       params: {
         id: Joi.string().min(2).required()
       }
     })
 
-    swapi.register(app, { routes })
+    swapi.register(app, { apis })
     request(http.createServer(app.callback()))
       .get('/test/1')
       .expect(400, done)
@@ -45,13 +53,13 @@ describe('Validator', function () {
     const app = new Koa()
     const swapi = new Swapi()
 
-    const routes = formatGetRoutes('/test', {
+    const apis = formatGetRoutes('/test', {
       query: {
         id: Joi.string().min(2).required()
       }
     })
 
-    swapi.register(app, { routes })
+    swapi.register(app, { apis })
     request(http.createServer(app.callback()))
       .get('/test?id=1')
       .expect(400, done) 
@@ -61,14 +69,14 @@ describe('Validator', function () {
     const app = new Koa()
     const swapi = new Swapi()
 
-    const routes = formatPostRoutes('/test', {
+    const apis = formatPostRoutes('/test', {
       payload: Joi.object({
         key1: Joi.string().min(2).required(),
         key2: Joi.number().required()
       }).required()
     })
 
-    swapi.register(app, { routes })
+    swapi.register(app, { apis })
     request(http.createServer(app.callback()))
       .post('/test')
       .expect(400)

@@ -5,28 +5,32 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi } = require('../built')
+const { Swapi, api } = require('../built')
 
-const routes = [{
-  method: 'get',
-  path: '/test/:id',
-  config: {
-    validate: {
-      params: {
-        id: Joi.string().required().min(2).max(4).description('猫的id')
-      },
-    },
-    handler: (ctx) => {
+const apis = [
+  api
+    .schemas([{
+      method: 'get',
+      path: '/test/:id',
+      config: {
+        id: 'getTest',
+        validate: {
+          params: {
+            id: Joi.string().required().min(2).max(4).description('猫的id')
+          },
+        }
+      }
+    }])
+    .handler({ getTest: async (ctx) => {
       ctx.body = 'test ok'
-    }
-  }
-}]
+    }})
+]
 
 describe('Router', function () {
   it('router can be accecced with ctx', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { routes })
+    swapi.register(app, { apis })
     request(http.createServer(app.callback()))
       .get('/test/xxx')
       .expect(200)
@@ -40,7 +44,7 @@ describe('Router', function () {
   it('can validate params', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { routes })
+    swapi.register(app, { apis })
     request(http.createServer(app.callback()))
       .get('/test/x')
       .expect(400)
@@ -79,7 +83,7 @@ describe('Router', function () {
 
     const middleware = [m1, m2, m3]
 
-    swapi.register(app, { middleware, routes })
+    swapi.register(app, { middleware, apis })
 
     request(http.createServer(app.callback()))
       .get('/test/xxx')

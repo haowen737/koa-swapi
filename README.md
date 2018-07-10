@@ -16,50 +16,66 @@
 
 ## Install
 
-    npm i koa-swapi --save
-
-## Quick start
-
-    // app.js
-    const Koa = require('koa')
-    const Swapi = require('koa-swapi')
-
-    // when pass routes as parameter
-    const routes = require('./routes')
-
-    const app = new Koa()
-    const swapi = new Swapi()
-
-    // swapi will antomatically search /routes and /controller
-    swapi.register(app, {
-      basePath: '/v1'
-    })
-
-    // or directlly pass routes as parameter
-    swapi.register(app, {
-      basePath: '/v1',
-      routes
-    })
-
-    app.listen(3333)
+```
+npm i koa-swapi --save
+```
 
 ## Usage Guide
 
-### JSON body
-The most common API endpoint with HAPI.js is one that POST's a JSON body.
+Build Schema
 
-    {
-      method: 'POST',
-      path: '/items',
-      config: {
-          handler: (ctx) => { },
-          tags: ['api'],
-          validate: {
-              payload: Joi.object({
-                  a: Joi.number(),
-                  b: Joi.number()
-              })
-          }
-      }
+```
+const catSchemas = [{
+    method: 'get',
+    path: '/cat/:id',
+    config: {
+        handler: (ctx) => { },
+        tags: ['api'],
+        validate: {
+            payload: Joi.object({
+                a: Joi.number(),
+                b: Joi.number()
+            })
+        }
     }
+}]
+```
 
+Build Controller
+
+```
+const controller = module.exports = {}
+
+controller.getCat = async (ctx) => {
+  ctx.status = 200;
+  ctx.body = 'miaomiaomiao'
+}
+```
+
+Build Api
+
+```
+const { api } = require('koa-swapi')
+
+const apis = [
+    api.schemas(catSchemas).handler(catController)
+]
+```
+
+egister
+
+```
+// app.js
+const Koa = require('koa')
+const { Swapi } = require('koa-swapi')
+
+const app = new Koa()
+const swapi = new Swapi()
+
+swapi.register(app, {
+    basePath: '/api',
+    apis: apis
+})
+
+app.listen(3333)
+```

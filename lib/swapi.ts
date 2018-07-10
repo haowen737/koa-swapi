@@ -5,7 +5,7 @@ import * as Koa from "koa"
 import * as KoaRouter from "koa-router"
 import * as should from "should"
 
-import Finder from "./apiFinder"
+// import Finder from "./apiFinder"
 import ConfigSeeker from "./configSeeker"
 import swaggerServer from "./swaggerServer"
 import validator from "./validator"
@@ -14,6 +14,7 @@ import { Route } from "./interfaces/RouteConfig.interface"
 
 interface Argv {
   routes?: Route[]
+  apis?: any[]
   middleware?: any[]
   options?: any
 }
@@ -26,9 +27,10 @@ export default class Swapi {
   private routes: KoaRouter[]
   private koaRouter: KoaRouter
   private middleware: any[]
+  private apis: any[]
   // private options: Options
   private config: any
-  private finder: Finder
+  // private finder: Finder
   private app: Koa
 
   constructor() {
@@ -47,17 +49,27 @@ export default class Swapi {
    * @memberof Swapi
    */
   public async register(app: Koa, argv: Argv = {}) {
-    const { options = {}, routes, middleware } = argv
-    this.finder = new Finder({ routes })
+    const { options = {}, routes, apis, middleware } = argv
+
+    should.exist(apis, `expected apis to exist`)
+    apis.should.be.an.Array()
+    // this.finder = new Finder({ routes })
     this.config = new ConfigSeeker(options)
     // this.options = options
     this.middleware = middleware || []
     this.app = app
+    this.apis = apis
 
-    this.buildKoaRoutes(routes)
+    this.parseApi(apis)
     this.buildSwagger()
 
     return this
+  }
+  private parseApi (apis) {
+    for (let i = 0; i < apis.length; i++) {
+      const api = apis[i]
+      this.buildKoaRoutes(api)
+    }
   }
 
   /**
@@ -66,13 +78,9 @@ export default class Swapi {
    * api finder will automatically find /routes and /controllers;
    */
   private buildKoaRoutes(routes) {
-    const routeList = routes
-      ? this.finder.combineControllers(routes)
-      : this.finder.combineRoutes()
-
-    for (const spec in routeList) {
-      if (routeList[spec]) {
-        this.createRoute(routeList[spec])
+    for (const spec in routes) {
+      if (routes[spec]) {
+        this.createRoute(routes[spec])
       }
     }
 
@@ -130,15 +138,10 @@ export default class Swapi {
    * call swagger builder
    */
   private buildSwagger() {
-    // const { basePath } = this.config
-    // const fileList = this.finder.findRouteFiles()
-    // const customSetting = { basePath }
     const setting = this.config.swagger
-    const routes = this.finder.routes
     swaggerServer.start({
       app: this.app,
-      // fileList,
-      routes,
+      apis: this.apis,
       setting,
     })
   }

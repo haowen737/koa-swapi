@@ -10,6 +10,7 @@ export interface RouteConfig {
   summary: string,
   description: string,
   validate: RouteConfigValidate,
+  handler?: () => {}
 }
 
 export interface Route {

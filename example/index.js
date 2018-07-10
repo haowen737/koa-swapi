@@ -16,6 +16,7 @@ app.use(bodyparser())
 swapi.register(app, {
   basePath: '/v1',
   routes,
+  apis: routes
 })
 
 // feel free to use SPA or SSR

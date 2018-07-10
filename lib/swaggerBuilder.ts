@@ -13,12 +13,12 @@ const DEBUG = debug("swagger-builder")
 const internals: any = {}
 
 class SwaggerBuilder {
-  public async build(routes, setting, ctx) {
+  public async build(apis, setting, ctx) {
 
     const appInfo = internals.readAppPkg()
     const settings = Object.assign(appInfo, setting)
 
-    return await builder.getSwaggerJSON(settings, routes, ctx)
+    return await builder.getSwaggerJSON(settings, apis, ctx)
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "koa-swapi",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Build restful api like HapiJs",
   "main": "./built/index.js",
   "directories": {
@@ -48,13 +48,16 @@
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "lodash": "^4.17.10",
+    "methods": "^1.1.2",
     "should": "^13.2.1",
     "swagger-parser": "^5.0.0",
     "swagger-ui-dist": "^3.14.0"
   },
   "devDependencies": {
+    "@types/joi": "^13.3.0",
     "@types/koa-mount": "^3.0.1",
     "@types/koa-static": "^4.0.0",
+    "@types/methods": "^1.1.0",
     "chalk": "^2.3.1",
     "code": "^5.2.0",
     "eslint": "^4.19.1",
