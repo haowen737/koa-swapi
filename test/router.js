@@ -30,7 +30,7 @@ describe('Router', function () {
   it('router can be accecced with ctx', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { apis })
+    swapi.register(app, { printLog: false, apis })
     request(http.createServer(app.callback()))
       .get('/test/xxx')
       .expect(200)
@@ -44,7 +44,7 @@ describe('Router', function () {
   it('can validate params', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { apis })
+    swapi.register(app, { printLog: false, apis })
     request(http.createServer(app.callback()))
       .get('/test/x')
       .expect(400)

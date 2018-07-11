@@ -4,6 +4,7 @@ import * as debug from "debug"
 
 import swaggerDefault from './defaults/swagger'
 import mockerDefault from './defaults/mocker'
+import baseDefault from './defaults/base'
 
 import { SwapiConfig } from '../interfaces/SwapiConfig.interface'
 
@@ -21,12 +22,13 @@ class ConfigSeeker {
   ) {
     const {
       basePath,
+      printLog,
       swagger,
       mocker
     } = conf
     this.swagger = this.meltSwagger({ swagger })
     this.mocker = this.meltMocker({ mocker })
-    this.base = this.meltBase({ basePath })
+    this.base = this.meltBase({ basePath, printLog })
   }
 
   meltSwagger ({ swagger }) {
@@ -37,8 +39,8 @@ class ConfigSeeker {
     return Object.assign({}, mockerDefault, mocker)
   }
 
-  meltBase ({ basePath }) {
-    return Object.assign({}, { basePath })
+  meltBase ({ basePath, printLog }) {
+    return Object.assign({}, baseDefault, { basePath, printLog })
   }
 
 }

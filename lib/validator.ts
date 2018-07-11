@@ -1,6 +1,8 @@
 import * as Joi from "joi"
+import * as debug from "debug"
 
 const ValidType = ["params", "query", "payload"]
+const DEBUG = debug("swapi:validator")
 
 class Validator {
   public valid(validate, ctx) {

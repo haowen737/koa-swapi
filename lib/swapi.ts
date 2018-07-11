@@ -138,11 +138,11 @@ export default class Swapi {
    * call swagger builder
    */
   private buildSwagger() {
-    const setting = this.config.swagger
+    // const setting = this.config.swagger
     swaggerServer.start({
       app: this.app,
       apis: this.apis,
-      setting,
+      setting: this.config,
     })
   }
 

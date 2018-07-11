@@ -33,6 +33,7 @@ interface Mocker {
 
 export interface SwapiConfig {
   basePath?: string,
+  printLog?: boolean,
   swagger?: Swagger,
   mocker?: Mocker
 }

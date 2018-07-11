@@ -1,9 +1,12 @@
 import * as Joi from 'joi'
 import * as Hoek from "hoek"
 import * as should from "should"
+import * as debug from "debug"
 
 import RouteSchema from './schemas/route'
 import { Route } from './interfaces/RouteConfig.interface'
+
+const DEBUG = debug("swapi:apiBuilder")
 
 interface RawRoute {
   id: string,
@@ -33,6 +36,8 @@ class ApiBuilder {
       should(handler).be.a.Function()
 
       route.config.handler = handler
+
+      DEBUG(`build route ${route.path}`)
 
       builtRoutes.push(route)
     }
