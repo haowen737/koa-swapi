@@ -24,17 +24,13 @@ interface Argv {
  * Inherits from KoaRouter.prototype
  */
 export default class Swapi {
-  private routes: KoaRouter[]
   private koaRouter: KoaRouter
   private middleware: any[]
   private apis: any[]
-  // private options: Options
   private config: any
-  // private finder: Finder
   private app: Koa
 
   constructor() {
-    this.routes = []
     this.koaRouter = new KoaRouter()
   }
 
@@ -53,9 +49,7 @@ export default class Swapi {
 
     should.exist(apis, `expected apis to exist`)
     apis.should.be.an.Array()
-    // this.finder = new Finder({ routes })
     this.config = new ConfigSeeker(argv)
-    // this.options = options
     this.middleware = middleware || []
     this.app = app
     this.apis = apis

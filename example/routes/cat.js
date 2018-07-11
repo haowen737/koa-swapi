@@ -6,6 +6,7 @@ module.exports = [{
   path: '/cat/:id',
   config: {
     id: 'getCat',
+    tags: ['catt'],
     summary: '获得一只帅气猫',
     description: '想获得一只帅气猫的时候可以调用这个接口',
     validate: {

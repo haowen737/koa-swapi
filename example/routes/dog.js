@@ -6,6 +6,7 @@ module.exports = [{
   path: '/dog',
   config: {
     id: 'getDog',
+    tags: ['doggy'],
     summary: '获得一只呆狗',
     description: '要获得一只呆狗的时候可以调这个接口',
     validate: {
@@ -25,6 +26,7 @@ module.exports = [{
   path: '/dog',
   config: {
     id: 'postDog',
+    tags: ['doggy'],
     summary: '创建一只呆狗',
     description: '要创建一只呆狗的时候可以调这个接口',
     validate: {
