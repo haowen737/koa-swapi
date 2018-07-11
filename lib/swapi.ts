@@ -49,12 +49,12 @@ export default class Swapi {
    * @memberof Swapi
    */
   public async register(app: Koa, argv: Argv = {}) {
-    const { options = {}, routes, apis, middleware } = argv
+    const { apis, middleware } = argv
 
     should.exist(apis, `expected apis to exist`)
     apis.should.be.an.Array()
     // this.finder = new Finder({ routes })
-    this.config = new ConfigSeeker(options)
+    this.config = new ConfigSeeker(argv)
     // this.options = options
     this.middleware = middleware || []
     this.app = app

@@ -29,7 +29,7 @@ class SwaggerServer {
     setting,
   }: SwaggerServerOption) {
     const { documentationPath, jsonPath } = setting.swagger
-    const { printLog } = setting.base
+    const { silence } = setting.base
 
     server.use(async (ctx, next) => {
       if (ctx.path === documentationPath) { // koa static barfs on root url w/o trailing slash
@@ -41,7 +41,9 @@ class SwaggerServer {
 
     server.use(mount(documentationPath, serve(swaggerUiAssetPath)))
 
-    printLog && printf(chalk.blue.bold("koa-swapi"), "document build succeed, path", chalk.blue(documentationPath))
+    silence
+      ? void 0
+      : printf(chalk.blue.bold("koa-swapi"), "document build succeed, path", chalk.blue(documentationPath))
 
     server.use(mount(jsonPath, async (ctx, next) => {
       const swaggerJSON = await swaggerBuilder.build(apis, setting.swagger, ctx)

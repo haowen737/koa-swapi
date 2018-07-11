@@ -1,4 +1,4 @@
 export default {
   basePath: '',
-  printLog: true
+  silence: true
 }

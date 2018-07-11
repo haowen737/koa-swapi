@@ -32,7 +32,7 @@ describe('ApiBuilder', function () {
   it('should build controller with route', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .get('/test/xxx')
       .expect(200)

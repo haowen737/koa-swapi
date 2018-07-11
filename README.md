@@ -29,7 +29,6 @@ const catSchemas = [{
     method: 'get',
     path: '/cat/:id',
     config: {
-        handler: (ctx) => { },
         tags: ['api'],
         validate: {
             payload: Joi.object({
@@ -62,7 +61,7 @@ const apis = [
 ]
 ```
 
-egister
+Register
 
 ```
 // app.js

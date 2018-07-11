@@ -27,10 +27,24 @@ const apis = [
 ]
 
 describe('Router', function () {
+  it('can config base path', function (done) {
+    const app = new Koa()
+    const swapi = new Swapi()
+    swapi.register(app, { basePath: '/testpath', silence: true, apis })
+    request(http.createServer(app.callback()))
+      .get('/testpath/test/xxx')
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err)
+        expect(res.text).toMatch('test ok')
+        done()
+      })
+  })
+  
   it('router can be accecced with ctx', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .get('/test/xxx')
       .expect(200)
@@ -44,7 +58,7 @@ describe('Router', function () {
   it('can validate params', function (done) {
     const app = new Koa()
     const swapi = new Swapi()
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .get('/test/x')
       .expect(400)
@@ -83,7 +97,7 @@ describe('Router', function () {
 
     const middleware = [m1, m2, m3]
 
-    swapi.register(app, { middleware, apis })
+    swapi.register(app, { silence: true, middleware, apis })
 
     request(http.createServer(app.callback()))
       .get('/test/xxx')

@@ -43,7 +43,7 @@ describe('Validator', function () {
       }
     })
 
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .get('/test/1')
       .expect(400, done)
@@ -59,7 +59,7 @@ describe('Validator', function () {
       }
     })
 
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .get('/test?id=1')
       .expect(400, done) 
@@ -76,7 +76,7 @@ describe('Validator', function () {
       }).required()
     })
 
-    swapi.register(app, { printLog: false, apis })
+    swapi.register(app, { silence: true, apis })
     request(http.createServer(app.callback()))
       .post('/test')
       .expect(400)

@@ -22,25 +22,32 @@ class ConfigSeeker {
   ) {
     const {
       basePath,
-      printLog,
+      silence,
       swagger,
       mocker
     } = conf
-    this.swagger = this.meltSwagger({ swagger })
-    this.mocker = this.meltMocker({ mocker })
-    this.base = this.meltBase({ basePath, printLog })
+    // this.swagger = this.meltSwagger({ swagger, basePath })
+    // this.mocker = this.meltMocker({ mocker })
+    // this.base = this.meltBase({ basePath, silence })
+    this.swagger = this.meltSwagger(conf)
+    this.mocker = this.meltMocker(conf)
+    this.base = this.meltBase(conf)
+
   }
 
-  meltSwagger ({ swagger }) {
-    return Object.assign({}, swaggerDefault, swagger)
+  meltSwagger (conf) {
+    const { swagger, basePath } = conf
+    return Object.assign({}, swaggerDefault, swagger, { basePath })
   }
 
-  meltMocker ({ mocker }) {
+  meltMocker (conf) {
+    const { mocker } = conf
     return Object.assign({}, mockerDefault, mocker)
   }
 
-  meltBase ({ basePath, printLog }) {
-    return Object.assign({}, baseDefault, { basePath, printLog })
+  meltBase (conf) {
+    const { basePath, silence } = conf
+    return Object.assign({}, baseDefault, { basePath, silence })
   }
 
 }
