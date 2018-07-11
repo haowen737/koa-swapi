@@ -8,6 +8,7 @@ import * as SwaggerUIDist from "../public/swagger-ui-dist"
 // import setting from "./configSeeker/defaults/swagger"
 import swaggerBuilder from "./swaggerBuilder"
 
+const DevEnv = process.env.NODE_ENV === 'development'
 const server = new Koa()
 const printf = console.log
 const DEBUG = debug("swagger:server")
@@ -31,18 +32,18 @@ class SwaggerServer {
     setting,
   }: SwaggerServerOption) {
     const { documentationPath, jsonPath } = setting
-    console.log('documentationPath---', documentationPath, swaggerUiAssetPath)
-    // server.use(async (ctx, next) => {
-    //   if (ctx.path === documentationPath) { // koa static barfs on root url w/o trailing slash
-    //     ctx.redirect(ctx.path + "/")
-    //   } else {
-    //     await next()
-    //   }
-    // })
+
+    server.use(async (ctx, next) => {
+      if (ctx.path === documentationPath) { // koa static barfs on root url w/o trailing slash
+        ctx.redirect(ctx.path + "/")
+      } else {
+        await next()
+      }
+    })
 
     server.use(mount(documentationPath, serve(swaggerUiAssetPath)))
 
-    printf(chalk.blue.bold("koa-swapi"), "document build succeed, path", chalk.blue(documentationPath))
+    DevEnv && printf(chalk.blue.bold("koa-swapi"), "document build succeed, path", chalk.blue(documentationPath))
     DEBUG("documentationPath", documentationPath)
 
     server.use(mount(jsonPath, async (ctx, next) => {

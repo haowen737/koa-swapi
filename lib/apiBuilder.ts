@@ -23,6 +23,10 @@ class ApiBuilder {
     for (let i = 0; i < this.rawRoutes.length; i++) {
       const rawRoute = this.rawRoutes[i]
       const { id, route } = rawRoute
+
+      // use id match controller
+      should.exist(id, `Expect get id defined for route ${route.path}`)
+
       const handler = route.config.handler || handlers[id]
 
       should.exist(handler, `Expect get controller ${id} but got ${handler}`)

@@ -1,6 +1,6 @@
 {
   "name": "koa-swapi",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Build restful api like HapiJs",
   "main": "./built/index.js",
   "directories": {
