@@ -1,0 +1,5 @@
+# swagger-ui
+public/swagger-ui-dist/* linguist-vendored
+
+# swagger-json-parser most from hapijs
+lib/swagger/* linguist-vendored
