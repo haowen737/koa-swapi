@@ -1,20 +1,22 @@
 export interface RouteConfigValidate {
-  query: any
-  params: any
-  payload: any
-  type: string
-  output: any
+  query?: any
+  params?: any
+  payload?: any
+  type?: string
+  output?: any
 }
 
 export interface RouteConfig {
-  summary: string,
-  description: string,
-  validate: RouteConfigValidate,
+  summary?: string,
+  id?: string,
+  tags?: string[],
+  description?: string,
+  validate?: RouteConfigValidate,
   handler?: () => {}
 }
 
 export interface Route {
-  method: string,
-  path: string,
-  config: RouteConfig
+  method?: string,
+  path?: string,
+  config?: RouteConfig
 }

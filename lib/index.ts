@@ -1,4 +1,12 @@
 import Swapi from "./swapi"
-import SwapiBuilder from './apiBuilder'
+import ApiBuilder from './apiBuilder'
+import ValidatorBuilder from './validatorBuilder'
+import RouteBuilder from './routeBuilder'
 
-export { Swapi, SwapiBuilder as api }
+
+export {
+  Swapi,
+  ApiBuilder as Api,
+  ValidatorBuilder as Validator,
+  RouteBuilder as Route
+}

@@ -4,13 +4,24 @@ import * as should from "should"
 import * as debug from "debug"
 
 import RouteSchema from './schemas/route'
-import { Route } from './interfaces/RouteConfig.interface'
+import { Route, RouteConfigValidate } from './interfaces/RouteConfig.interface'
 
 const DEBUG = debug("swapi:apiBuilder")
 
 interface RawRoute {
   id: string,
   route: Route
+}
+
+interface SwapiRoute {
+  isSwapiRoute?: boolean
+  _path: string
+  _method: string
+  _tags: string[]
+  _id: string
+  _summary: string
+  _description: string
+  _validate: RouteConfigValidate
 }
 
 class ApiBuilder {
@@ -47,10 +58,16 @@ class ApiBuilder {
     return builtRoutes
   }
 
-  schemas(routes: Route[]) {
+  schemas(routes: SwapiRoute[]) 
+  schemas(routes: Route[])
+  schemas(routes: any[]) {
     for (let i = 0; i < routes.length; i++) {
-      const route = routes[i]
-      Joi.assert(route, RouteSchema)
+      let route = routes[i]
+
+      if (route._isSwapiRoute) {
+        route = this.readSwapiRoute(route)
+      }
+      // Joi.assert(route, RouteSchema)
 
       const id = Hoek.reach(route, 'config.id')
       
@@ -58,6 +75,34 @@ class ApiBuilder {
     }
 
     return this
+  }
+
+  private readSwapiRoute (route: SwapiRoute) {
+    const obj: Route = {}
+    obj.path = route._path
+    obj.method = route._method
+
+    obj.config = {}
+    obj.config.id = route._id
+    obj.config.tags = route._tags
+    obj.config.summary = route._summary
+    obj.config.description = route._description
+    obj.config.validate = this.readSwapiValitador(route._validate)
+
+    return obj
+  }
+
+  private readSwapiValitador (validator: any) {
+    if (!validator) { return }
+    const obj: any = {}
+
+    obj.query = validator._query
+    obj.params = validator._params
+    obj.payload = validator._payload
+    obj.type = validator._type
+    obj.output = validator._output
+
+    return obj
   }
 
   buildByArray(routes: Route[]) {}

@@ -13,7 +13,8 @@
     "watch": "tsc -w --listFiles",
     "build": "rimraf built && tsc",
     "lint": "./node_modules/.bin/tslint --fix ./lib/*.ts",
-    "test": "NODE_ENV=test mocha"
+    "test": "NODE_ENV=test mocha",
+    "tb": "NODE_ENV=test mocha 'test/schemaBuilder.js'"
   },
   "repository": {
     "type": "git",
