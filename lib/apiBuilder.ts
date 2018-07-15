@@ -87,7 +87,10 @@ class ApiBuilder {
     obj.config.tags = route._tags
     obj.config.summary = route._summary
     obj.config.description = route._description
-    obj.config.validate = this.readSwapiValitador(route._validate)
+
+    if (route._validate && route._validate._isSwapiValidator) {
+      obj.config.validate = this.readSwapiValitador(route._validate)
+    }
 
     return obj
   }

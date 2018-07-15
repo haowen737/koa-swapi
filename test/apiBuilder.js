@@ -5,13 +5,14 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi, api } = require('../built')
+const { Swapi, Api } = require('../built')
 
 const schemas = [{
   method: 'get',
   path: '/test/:id',
   config: {
     id: 'getTest',
+    tags: ['t'],
     validate: {
       params: {
         id: Joi.string().required().min(2).max(4).description('猫的id')
@@ -25,7 +26,7 @@ const handler = { getTest: async (ctx) => {
 }}
 
 const apis = [
-  api.schemas(schemas).handler(handler)
+  Api.schemas(schemas).handler(handler)
 ]
 
 describe('ApiBuilder', function () {

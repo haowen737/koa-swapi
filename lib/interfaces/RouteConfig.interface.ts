@@ -3,7 +3,8 @@ export interface RouteConfigValidate {
   params?: any
   payload?: any
   type?: string
-  output?: any
+  output?: any,
+  _isSwapiValidator?: boolean
 }
 
 export interface RouteConfig {

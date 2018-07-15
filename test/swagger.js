@@ -4,22 +4,27 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('Joi')
 
-const { Swapi, api } = require('../built')
+const { Swapi, Api, Route, Validator } = require('../built')
 
 const apis = [
-  api
-    .schemas([{
-      method: 'get',
-      path: '/test/:id',
-      config: {
-        id: 'getTest',
-        validate: {
-          params: {
-            id: Joi.string().required().min(2).max(4).description('猫的id')
-          },
-        }
-      }
-    }])
+  Api
+    .schemas([
+      Route
+        .get('/test/:id')
+        .tags('getTest')
+        .validate(
+          Validator
+            .params({
+              id: Joi.string().required().min(2).max(4).description('猫的id')
+            })
+            .output({
+              200: {
+                body: Joi.string()
+              }
+            })
+        )
+        .create('getTest')
+    ])
     .handler({ getTest: async (ctx) => {
       ctx.body = 'test ok'
     }})
