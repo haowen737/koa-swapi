@@ -67,7 +67,7 @@ class ApiBuilder {
       if (route._isSwapiRoute) {
         route = this.readSwapiRoute(route)
       }
-      // Joi.assert(route, RouteSchema)
+      Joi.assert(route, RouteSchema)
 
       const id = Hoek.reach(route, 'config.id')
       
@@ -79,17 +79,19 @@ class ApiBuilder {
 
   private readSwapiRoute (route: SwapiRoute) {
     const obj: Route = {}
-    obj.path = route._path
-    obj.method = route._method
+    obj.path = Hoek.reach(route, '_target.path')
+    obj.method = Hoek.reach(route, '_target.method')
 
     obj.config = {}
-    obj.config.id = route._id
-    obj.config.tags = route._tags
-    obj.config.summary = route._summary
-    obj.config.description = route._description
+    obj.config.id = Hoek.reach(route, '_target.id')
+    obj.config.tags = Hoek.reach(route, '_target.tags')
+    obj.config.summary = Hoek.reach(route, '_target.summary')
+    obj.config.description = Hoek.reach(route, '_target.description')
 
-    if (route._validate && route._validate._isSwapiValidator) {
-      obj.config.validate = this.readSwapiValitador(route._validate)
+    const validate = Hoek.reach(route, '_target.validate')
+
+    if (validate && validate._isSwapiValidator) {
+      obj.config.validate = this.readSwapiValitador(validate)
     }
 
     return obj
@@ -99,11 +101,11 @@ class ApiBuilder {
     if (!validator) { return }
     const obj: any = {}
 
-    obj.query = validator._query
-    obj.params = validator._params
-    obj.payload = validator._payload
-    obj.type = validator._type
-    obj.output = validator._output
+    obj.query = Hoek.reach(validator, '_target.query')
+    obj.params = Hoek.reach(validator, '_target.params')
+    obj.payload = Hoek.reach(validator, '_target.payload')
+    obj.type = Hoek.reach(validator, '_target.type')
+    obj.output = Hoek.reach(validator, '_target.output')
 
     return obj
   }

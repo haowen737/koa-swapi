@@ -1,33 +1,27 @@
-import { RouteConfigValidate } from './interfaces/RouteConfig.interface'
+import * as Hoek from 'hoek'
 
 interface Internal {
-  build?
-  melt?
+  root?
 }
 
-const Builder = function() {
-  return new internal.build()
-}
+class Any {
+  _isSwapiValidator: boolean
+  _target: any
+  
+  constructor() {
+    this._isSwapiValidator = true
+    this._target = {}
+  }
 
-const internal: Internal = {}
-
-internal.melt = function () {
-  const obj = this.clone()
-  return obj
-}
-internal.build = class {
-  raw: RouteConfigValidate = {}
-  path: string
-  id: string
+  _init() {
+    return this
+  }
 
   clone() {
-    const obj = Object.create(Object.getPrototypeOf(this))
+    const obj: any = Object.create(Object.getPrototypeOf(this))
 
-    obj._query = this.raw.query
-    obj._params = this.raw.params
-    obj._payload = this.raw.payload
-    obj._type = this.raw.type
-    obj._output = this.raw.output
+    obj._isSwapiValidator = true
+    obj._target = Hoek.clone(this._target)
 
     obj.query = this.query
     obj.params = this.params
@@ -35,32 +29,54 @@ internal.build = class {
     obj.type = this.type
     obj.output = this.output
 
-    obj._isSwapiValidator = true
+    return obj
+  }
+
+  params(schema: any) {
+    const obj = this.clone()
+    obj._target.params = schema
 
     return obj
   }
 
-  query = (obj: any) => this.handleJoiObj('query', obj)
+  query(schema: any) {
+    const obj = this.clone()
+    obj._target.query = schema
 
-  params = (obj: any) => this.handleJoiObj('params', obj)
-
-  payload = (obj: any) => this.handleJoiObj('payload', obj)
-
-  output = (obj: any) => this.handleJoiObj('output', obj)
-
-  type (type: string) {
-    this.raw.type = type
-
-    return internal.melt.call(this)
+    return obj
   }
 
-  private handleJoiObj (type: any, obj: any) {
-    this.raw[type] = obj
+  payload(schema: any) {
+    const obj = this.clone()
+    obj._target.payload = schema
 
-    return internal.melt.call(this)
+    return obj
   }
 
+  type(schema: any) {
+    const obj = this.clone()
+    obj._target.type = schema
+
+    return obj
+  }
+
+  output(schema: any) {
+    const obj = this.clone()
+    obj._target.output = schema
+
+    return obj
+  }
 }
 
+const internal: Internal = {}
 
-export default Builder()
+internal.root = function () {
+
+  const any = new Any()
+
+  const root = any.clone()
+
+  return root
+}
+
+export default internal.root()

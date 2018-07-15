@@ -1,9 +1,6 @@
-interface Internal {
-  build?
-  melt?
-}
+import * as Hoek from 'hoek'
 
-interface Raw {
+interface Target {
   method?: string
   path?: string
   id?: string
@@ -13,35 +10,30 @@ interface Raw {
   validate?: string
 }
 
-const Builder = function() {
-  return new internal.build()
+interface Internal {
+  root?
 }
 
-const internal: Internal = {}
+class Any {
+  _isSwapiValidator: boolean
+  _target: Target
+  
+  constructor() {
+    this._isSwapiValidator = true
+    this._target = {}
+  }
 
-internal.melt = function () {
-  const obj = this.clone()
-  return obj
-}
-internal.build = class {
-  raw: Raw = {}
-  path: string
-  id: string
+  _init() {
+    return this
+  }
 
   clone() {
-    const obj = Object.create(Object.getPrototypeOf(this))
+    const obj: any = Object.create(Object.getPrototypeOf(this))
 
-    obj._path = this.raw.path
-    obj._method = this.raw.method
-    obj._tags = this.raw.tags
-    obj._id = this.raw.id
-    obj._summary = this.raw.summary
-    obj._description = this.raw.description
-    obj._validate = this.raw.validate
+    obj._isSwapiRoute = true
+    obj._target = Hoek.clone(this._target)
 
     obj.get = this.get
-    obj.create = this.create
-    obj.raw = this.raw
     obj.post = this.post
     obj.put = this.put
     obj.delete = this.delete
@@ -50,8 +42,6 @@ internal.build = class {
     obj.summary = this.summary
     obj.description = this.description
     obj.validate = this.validate
-
-    obj._isSwapiRoute = true
 
     return obj
   }
@@ -65,47 +55,64 @@ internal.build = class {
   delete = (path: string) => this.handlePath('delete', path)
 
   private handlePath (method: string, path: string) {
-    this.raw.path = path
-    this.raw.method = method
-    return internal.melt.call(this)
+    const obj = this.clone()
+    obj._target.path = path
+    obj._target.method = method
+
+    return obj
   }
 
   create (id: string) {
-    this.raw.id = id
-    return internal.melt.call(this)
+    const obj = this.clone()
+    obj._target.id = id
+
+    return obj
   }
 
   tags (tags: string[])
   tags (tags: string)
   tags (tags: any) {
+    const obj = this.clone()
     tags = tags instanceof Array
       ? tags
       : [tags]
 
-    this.raw.tags = tags
+    obj._target.tags = tags
 
-    return internal.melt.call(this)
+    return obj
   }
 
   summary (summary: string) {
-    this.raw.summary = summary
+    const obj = this.clone()
+    obj._target.summary = summary
 
-    return internal.melt.call(this)
+    return obj
   }
 
   description (description: string) {
-    this.raw.description = description
+    const obj = this.clone()
+    obj._target.description = description
 
-    return internal.melt.call(this)
+    return obj
   }
 
   validate (joiSchema: any) {
-    this.raw.validate = joiSchema
+    const obj = this.clone()
+    obj._target.validate = joiSchema
 
-    return internal.melt.call(this)
+    return obj
   }
-
 }
 
+const internal: Internal = {}
 
-export default Builder()
+internal.root = function () {
+
+  const any = new Any()
+
+  const root = any.clone()
+
+  return root
+}
+
+export default internal.root()
