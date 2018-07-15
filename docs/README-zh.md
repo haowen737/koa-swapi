@@ -28,27 +28,27 @@ const Joi = require('joi')
 const { Route, Validator } = require('koa-swapi')
 
 const catSchemas = [
-    Route
-        .get('/cat/:id')
-        .tags(['catt', 'aninaml'])
-        .summary('获得一只帅气猫')
-        .description('想获得一只帅气猫的时候可以调用这个接口')
-        .validate(
-        Validator
-            .params({
-            id: Joi.string().required().min(2).max(4).description('猫的id')
-            })
-            .query({
-            name: Joi.string().required().min(3).max(100).description('猫的名字'),
-            sex: Joi.any().required().valid(['0', '1']).description('猫的性别, 0:男, 1:女')
-            })
-            .output({
-            200: {
-                body: Joi.string()
-            }
-            })
-        )
-        .create('getCat')
+  Route
+    .get('/cat/:id')
+    .tags(['catt', 'aninaml'])
+    .summary('获得一只帅气猫')
+    .description('想获得一只帅气猫的时候可以调用这个接口')
+    .validate(
+    Validator
+        .params({
+        id: Joi.string().required().min(2).max(4).description('猫的id')
+        })
+        .query({
+        name: Joi.string().required().min(3).max(100).description('猫的名字'),
+        sex: Joi.any().required().valid(['0', '1']).description('猫的性别, 0:男, 1:女')
+        })
+        .output({
+        200: {
+            body: Joi.string()
+        }
+        })
+    )
+    .create('getCat')
 ]
 ```
 
@@ -69,7 +69,7 @@ Build Api
 const { api } = require('koa-swapi')
 
 const apis = [
-    api.schemas(catSchemas).handler(catController)
+  api.schemas(catSchemas).handler(catController)
 ]
 ```
 
@@ -84,8 +84,8 @@ const app = new Koa()
 const swapi = new Swapi()
 
 swapi.register(app, {
-    basePath: '/api',
-    apis: apis
+  basePath: '/api',
+  apis: apis
 })
 
 app.listen(3333)

@@ -16,7 +16,7 @@ export default {
   sortTags: "default",
   sortEndpoints: "path",
   sortPaths: "unsorted",
-  grouping: "path",
+  grouping: "tags",
   tagsGroupingFilter: (tag) => tag !== "api",
   uiCompleteScript: null,
   xProperties: true,

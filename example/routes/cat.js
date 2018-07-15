@@ -22,11 +22,6 @@ module.exports = [
             body: Joi.string()
           }
         })
-      .output({
-        200: {
-          body: Joi.string()
-        }
-      })
     )
     .create('getCat')
 ]
