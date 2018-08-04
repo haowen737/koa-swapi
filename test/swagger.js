@@ -4,7 +4,7 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('Joi')
 
-const { Swapi, Api, Route, Validator } = require('../built')
+const { Swapi, Api, Route, Validator } = require('../')
 
 const apis = [
   Api

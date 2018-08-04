@@ -44,7 +44,7 @@ export default class Swapi {
    * @returns
    * @memberof Swapi
    */
-  public async register(app: Koa, argv: Argv = {}) {
+  public register(app: Koa, argv: Argv = {}) {
     const { apis, middleware } = argv
 
     should.exist(apis, `expected apis to exist`)

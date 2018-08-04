@@ -1,4 +1,4 @@
-const { Swapi, Validator, Route } = require('../built')
+const { Swapi, Validator, Route } = require('../')
 const Joi = require('Joi')
 
 describe('SwaggerBuilder', function () {

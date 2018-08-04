@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./built",
     "allowJs": true,
+    // "declaration": true,
     "target": "ES6",
     "sourceMap": true,
     "module": "commonjs",

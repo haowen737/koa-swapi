@@ -5,7 +5,7 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi, Api, Route, Validator } = require('../built')
+const { Swapi, Api, Route, Validator } = require('../')
 
 const handler = (ctx) => {
   console.log('ctx.request.body', ctx.request.body)

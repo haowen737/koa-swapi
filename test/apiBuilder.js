@@ -5,7 +5,7 @@ const http = require('http')
 const Koa = require('koa')
 const Joi = require('joi')
 
-const { Swapi, Api } = require('../built')
+const { Swapi, Api } = require('../')
 
 const schemas = [{
   method: 'get',
