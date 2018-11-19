@@ -87,6 +87,7 @@ const swapi = new Swapi()
 
 swapi.register(app, {
   basePath: '/api',
+  // swagger: {...}: SwaggerSetting
   apis: apis
 })
 
