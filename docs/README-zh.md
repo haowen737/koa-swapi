@@ -15,7 +15,7 @@
 
 ## Install
 
-```
+```shell
 npm i koa-swapi --save
 ```
 
@@ -23,7 +23,7 @@ npm i koa-swapi --save
 
 Build Schema
 
-```
+```js
 const Joi = require('joi')
 const { Route, Validator } = require('koa-swapi')
 
@@ -54,7 +54,7 @@ const catSchemas = [
 
 Build Controller
 
-```
+```js
 const controller = module.exports = {}
 
 controller.getCat = async (ctx) => {
@@ -65,7 +65,7 @@ controller.getCat = async (ctx) => {
 
 Build Api
 
-```
+```js
 const { api } = require('koa-swapi')
 
 const apis = [
@@ -75,7 +75,7 @@ const apis = [
 
 Register
 
-```
+```js
 // app.js
 const Koa = require('koa')
 const { Swapi } = require('koa-swapi')
