@@ -5,12 +5,14 @@ const ValidType = ["params", "query", "payload"]
 const DEBUG = debug("swapi:validator")
 
 class Validator {
-  public valid(validate, ctx) {
+  public valid(validate, ctx, logger) {
     for (let i = 0; i < ValidType.length; i++) {
+      const method = ctx.request.method
+      const url = ctx.request.url
       const type = internals.getCurrentValidType(i)
       const schema = internals.getCurrentValidSchema(validate, type)
       const data = internals.getCurrentValidData(ctx, type)
-
+      logger.info(`validate param in ${method} ${url}`, { data })
       if (schema) {
         const { error } = Joi.validate(data, schema)
 

@@ -51,7 +51,8 @@
     "methods": "^1.1.2",
     "should": "^13.2.1",
     "swagger-parser": "^5.0.0",
-    "swagger-ui-dist": "^3.14.0"
+    "swagger-ui-dist": "^3.14.0",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
     "@types/joi": "^13.3.0",

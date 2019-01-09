@@ -88,7 +88,9 @@ const swapi = new Swapi()
 swapi.register(app, {
   basePath: '/api',
   // swagger: {...}: SwaggerSetting
-  apis: apis
+  apis: apis,
+  logger,// custom logger instance
+  middleware,// custom middleware use before validate happens
 })
 
 app.listen(3333)

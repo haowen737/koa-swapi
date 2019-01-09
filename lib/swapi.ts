@@ -9,7 +9,7 @@ import * as should from "should"
 import ConfigSeeker from "./configSeeker"
 import swaggerServer from "./swaggerServer"
 import validator from "./validator"
-
+import Logger from "./logger"
 import { Route } from "./interfaces/RouteConfig.interface"
 
 interface Argv {
@@ -17,6 +17,7 @@ interface Argv {
   apis?: any[]
   middleware?: any[]
   options?: any
+  logger?: any
 }
 
 /**
@@ -29,6 +30,7 @@ export default class Swapi {
   private apis: any[]
   private config: any
   private app: Koa
+  private logger: any
 
   constructor() {
     this.koaRouter = new KoaRouter()
@@ -45,7 +47,7 @@ export default class Swapi {
    * @memberof Swapi
    */
   public register(app: Koa, argv: Argv = {}) {
-    const { apis, middleware } = argv
+    const { apis, middleware, logger: userLogger } = argv
 
     should.exist(apis, `expected apis to exist`)
     apis.should.be.an.Array()
@@ -53,9 +55,11 @@ export default class Swapi {
     this.middleware = middleware || []
     this.app = app
     this.apis = apis
+    this.logger = new Logger(userLogger)
 
     this.parseApi(apis)
     this.buildSwagger()
+    this.logger.info(`${apis.length} router registered`)
 
     return this
   }
@@ -108,6 +112,7 @@ export default class Swapi {
 
     const fullPath = `${basePath || ""}${path}`
 
+    this.logger.info(`Mount Route ${fullPath}`)
     debug(fullPath)
 
     route[method](fullPath, ...middleware)
@@ -121,7 +126,7 @@ export default class Swapi {
   private validator(validate) {
     return async (ctx, next) => {
       if (validate) {
-        validator.valid(validate, ctx)
+        validator.valid(validate, ctx, this.logger)
       }
 
       await next()
