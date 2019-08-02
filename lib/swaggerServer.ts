@@ -3,7 +3,8 @@ import * as debug from "debug"
 import * as Koa from "koa"
 import * as mount from "koa-mount"
 import * as serve from "koa-static"
-import * as SwaggerUIDist from "../public/swagger-ui-dist"
+import * as SwaggerUIDist from 'swagger-ui-dist'
+// import * as SwaggerUIDist from "../public/swagger-ui-dist"
 
 // import setting from "./configSeeker/defaults/swagger"
 import swaggerBuilder from "./swaggerBuilder"
@@ -11,7 +12,7 @@ import swaggerBuilder from "./swaggerBuilder"
 const server = new Koa()
 const printf = console.log
 const DEBUG = debug("swapi:swaggerServer")
-
+const SwaggerUIBundle = SwaggerUIDist.SwaggerUIBundle
 const swaggerUiAssetPath = SwaggerUIDist.getAbsoluteFSPath()
 
 // const { documentationPath, jsonPath } = setting

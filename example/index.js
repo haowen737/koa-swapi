@@ -1,8 +1,10 @@
 const Koa = require('koa')
 const bodyparser = require('koa-bodyparser')
+const Sqrl = require('squirrelly')
 const router = require('koa-router')()
 const routes = require('./routes')
 const { Swapi } = require('../built')
+const myTemplate = require('./views')
 
 const app = new Koa()
 const swapi = new Swapi()
@@ -20,7 +22,9 @@ swapi.register(app, {
 
 // feel free to use SPA or SSR
 router.get('/', async (ctx, next) => {
-  ctx.body = 'this is page'
+  ctx.body = Sqrl.Render(myTemplate, {
+    SwaggerDoc: '/documentation'
+  })
 });
 
 app.use(router.routes())

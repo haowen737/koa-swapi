@@ -4,7 +4,7 @@
   "description": "this is a sweet swapii swagger example",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon  --inspect=5959 index.js",
+    "start": "nodemon --inspect=5959 index.js",
     "debug": "DEBUG=* nodemon  --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +16,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "squirrelly": "^7.4.0"
   }
 }
