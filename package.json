@@ -35,6 +35,7 @@
     "@types/json-schema": "^6.0.1",
     "@types/koa": "^2.0.46",
     "@types/koa-router": "^7.0.28",
+    "@types/swagger-ui-dist": "^3.0.5",
     "chalk": "^2.4.0",
     "debug": "^3.1.0",
     "fast-safe-stringify": "^1.2.3",
